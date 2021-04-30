@@ -15,7 +15,7 @@ repositories {
 }
 
 application {
-    getMainClass().set('main/java/Main')
+    getMainClass().set('Main')
 }
 
 dependencies {
