@@ -4,6 +4,6 @@ public class Main extends PApplet {
         /*String[] appArgs = {"Game of Corona"};
         DI di = new DI();
         PApplet.runSketch(appArgs, di);*/
-        System.out.println("hello gradle");
+        System.out.println(new AK(3));
     }
 }

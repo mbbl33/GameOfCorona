@@ -1,3 +1,4 @@
+/*
 import processing.core.PApplet;
 
 public class DI extends PApplet {
@@ -13,7 +14,7 @@ public class DI extends PApplet {
 
     public void setup() {
         this.ak = new AK();
-        this.grid = new Grid(ak.getBoard().length, SIZE);
+        this.grid = new Grid(ak.getBoard().size(), SIZE);
         fieldSize = grid.calcSquare();
     }
 
@@ -22,3 +23,4 @@ public class DI extends PApplet {
 
     }
 }
+*/

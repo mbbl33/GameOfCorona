@@ -1,14 +1,16 @@
-Main.java
- Main
+HorizontalSlider.java
+ HorizontalSlider
 Point.java
  Point
-Screen.java
- Screen
-CellStatus.java
- CellStatus
 Grid.java
  Grid
-DI.java
- DI
+CellStatus.java
+ CellStatus
+Main.java
+ Main
+Cell.java
+ Cell
+GameOfCorona.java
+ GameOfCorona
 AK.java
  AK

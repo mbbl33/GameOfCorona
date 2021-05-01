@@ -1,3 +1,3 @@
 public enum CellStatus {
-    HEALTHY,MASKED, SICK, CURED, VACCINATED, DEAD
+    HEALTHY,MASKED, SICK, Immun, DEAD;
 }

@@ -6,17 +6,17 @@ import java.util.Arrays;
 
  */
 public class Grid{
-    private int boardLength;
+    private int boardSize;
     private final int WINDOWSIZE;
     private Point[] points;
 
     /**
      * Grid for a SQUARE field
-     * @param boardLength The size of the board on which the game takes place
+     * @param boardSize Number of Fields on the board on which the game takes place
      * @param windowSize Size of the SQUARE in which the game takes place
      * */
-    Grid(int boardLength, int windowSize) {
-        this.boardLength = boardLength;
+    Grid(int boardSize, int windowSize) {
+        this.boardSize = boardSize;
         this.WINDOWSIZE = windowSize;
         calcGrid(calcSquare());
     }
@@ -29,9 +29,9 @@ public class Grid{
      * @param squSize Size of a single Field in the Boardgame */
     private void calcGrid(int squSize) {
         int boardEdge = calcEdge();
-        Point[] grid = new Point[boardLength];
+        Point[] grid = new Point[boardSize];
         int j = 0;
-        for (int i = 0; i < boardLength; i++) {
+        for (int i = 0; i < boardSize; i++) {
             grid[i] = new Point((i % boardEdge) * squSize, (j * squSize));
             if (i % boardEdge == boardEdge - 1) j++;
         }
@@ -43,7 +43,7 @@ public class Grid{
     }
     /** calc the Edge length of a square*/
     public int calcEdge() {
-        return (int) Math.sqrt(boardLength);
+        return (int) Math.sqrt(boardSize);
     }
 
 }
