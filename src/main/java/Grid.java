@@ -12,8 +12,8 @@ public class Grid{
 
     /**
      * Grid for a SQUARE field
-     * @param boardSize Number of Fields on the board on which the game takes place
-     * @param windowSize Size of the SQUARE in which the game takes place
+     * @param boardSize number of fields on the board on which the game takes place
+     * @param windowSize size of the SQUARE in which the game takes place
      * */
     Grid(int boardSize, int windowSize) {
         this.boardSize = boardSize;
@@ -26,7 +26,7 @@ public class Grid{
     }
 
     /** calculates a independently grid  based on the size of the board and the window size.
-     * @param squSize Size of a single Field in the Boardgame */
+     * @param squSize Size of a single field in the boardgame */
     private void calcGrid(int squSize) {
         int boardEdge = calcEdge();
         Point[] grid = new Point[boardSize];
@@ -37,11 +37,11 @@ public class Grid{
         }
         this.points=grid;
     }
-    /** calc the size of single Fields in a Boardgame*/
+    /** calc the size of single Fields in a boardgame*/
     public int calcSquare() {
         return (WINDOWSIZE / calcEdge());
     }
-    /** calc the Edge length of a square*/
+    /** calc the edge length of a square*/
     public int calcEdge() {
         return (int) Math.sqrt(boardSize);
     }
