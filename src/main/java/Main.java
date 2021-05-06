@@ -4,6 +4,5 @@ public class Main extends PApplet {
         String[] appArgs = {"Game of Corona"};
         DI di = new DI();
         PApplet.runSketch(appArgs, di);
-
     }
 }

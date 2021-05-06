@@ -1,22 +1,22 @@
-Cell.java
- Cell
-Point.java
- Point
-Grid.java
- Grid
-Direction.java
- Direction
-HorizontalSlider.java
- HorizontalSlider
-CellStatus.java
- CellStatus
-GameOfCorona.java
- GameOfCorona
 Main.java
  Main
-DI.java
- DI
- DI$1
+Point.java
+ Point
+CellStatus.java
+ CellStatus
+Direction.java
+ Direction
+Grid.java
+ Grid
 AK.java
  AK
  AK$1
+Cell.java
+ Cell
+GameOfCorona.java
+ GameOfCorona
+DI.java
+ DI
+ DI$1
+HorizontalSlider.java
+ HorizontalSlider
