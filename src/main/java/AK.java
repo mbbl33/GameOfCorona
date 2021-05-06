@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.function.*;
 
 /**
  * @author Maximilian Biebl
@@ -40,7 +41,7 @@ public class AK {
     }
 
     /**
-     * @return the board on which the simulation happens
+     * @return a deep copy of the  board on which the simulation happens
      */
     public List<Cell> getBoard() {
         List<Cell> out = new ArrayList<>();
@@ -48,21 +49,17 @@ public class AK {
         return out;
     }
 
-/*
-    public Predicate<Cell> isInfectable = cell -> cell.getStatus() == CellStatus.HEALTHY || cell.getStatus() == CellStatus.MASKED;
-*/
-
     /**
      * infects a cell
      *
      * @param pos is the position the cell that is infected
      */
     public AK infect(int pos) {
-        /*board.stream().filter()*/
         if (board.get(pos).getStatus() == CellStatus.HEALTHY || board.get(pos).getStatus() == CellStatus.MASKED) {
             board.get(pos).setStatus(CellStatus.SICK);
             board.get(pos).setTicksTillEvent((int) (Math.random() * eventTickRange));
         }
+
         return this;
     }
 
@@ -104,6 +101,10 @@ public class AK {
         };
         return 0 <= difference && difference < board.size() ? board.get(difference) : new Cell().setStatus(CellStatus.DEAD);
     }
+
+
+    public Predicate<Cell> isInfectable = cell -> cell.getStatus() == CellStatus.HEALTHY || cell.getStatus() == CellStatus.MASKED;
+
 
     /**
      * @param pos isis the position of the cell from which the neighbors are to be checked for infectibility.
@@ -236,10 +237,10 @@ public class AK {
         return this;
     }
 
-    @Override
     /**
      * returns the board with all Cells as their String representation
      */
+    @Override
     public String toString() {
         String str = "";
 

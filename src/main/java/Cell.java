@@ -1,3 +1,7 @@
+/**
+ * @author Maximilian Biebl
+ * an object that can assume various disease states that are specified in CellStatus
+ */
 public class Cell {
 
     private CellStatus status = CellStatus.HEALTHY;
@@ -33,10 +37,11 @@ public class Cell {
         return this;
     }
 
-    @Override
+
     /**
      * return the cell as a string dependent on its current status
-     * */
+     */
+    @Override
     public String toString() {
         String str = "HMSID";
         return Character.toString(str.charAt(status.ordinal()));

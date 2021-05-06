@@ -4,28 +4,28 @@
  */
 public class Point {
 
-    private final int x, y;
+    private final int X, Y;
 
     /**
      * @param x X coordinate
      * @param y Y coordinate
      */
     Point(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.X = x;
+        this.Y = y;
     }
 
     /**
      * @return the X coordinate
      */
     public int getX() {
-        return x;
+        return X;
     }
 
     /**
      * @return the Y coordinate
      */
     public int getY() {
-        return y;
+        return Y;
     }
 }

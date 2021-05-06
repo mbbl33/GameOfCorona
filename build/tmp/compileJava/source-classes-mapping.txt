@@ -1,5 +1,5 @@
-Main.java
- Main
+GameOfCorona.java
+ GameOfCorona
 Point.java
  Point
 CellStatus.java
@@ -13,8 +13,8 @@ AK.java
  AK$1
 Cell.java
  Cell
-GameOfCorona.java
- GameOfCorona
+Main.java
+ Main
 DI.java
  DI
  DI$1
