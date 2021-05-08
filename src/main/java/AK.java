@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.function.*;
+import java.util.stream.*;
 
 /**
  * @author Maximilian Biebl
@@ -17,7 +18,7 @@ public class AK {
     //default Probability of infection modifier when wearing a mask in percent
     private int maskModifier = 50;
 
-    //highest tick number befor Cell chang random to DEAD or IMMUN
+    //highest tick number befor Cell chang random to DEAD or IMMUNE
     private int eventTickRange = 10;
 
     //default probability that an infection is deadly
@@ -102,23 +103,34 @@ public class AK {
         return 0 <= difference && difference < board.size() ? board.get(difference) : new Cell().setStatus(CellStatus.DEAD);
     }
 
-
-    public Predicate<Cell> isInfectable = cell -> cell.getStatus() == CellStatus.HEALTHY || cell.getStatus() == CellStatus.MASKED;
-
+    /**
+     * prove if an cell is infectable
+     */
+    private final Predicate<Cell> isInfectable = cell -> cell.getStatus() == CellStatus.HEALTHY || cell.getStatus() == CellStatus.MASKED;
 
     /**
-     * @param pos isis the position of the cell from which the neighbors are to be checked for infectibility.
-     *            Only cells that have the status HEALTHY or MASKED can be infected
+     * prove if an cell is sick
+     */
+    private final Predicate<Cell> isSick = cell -> cell.getStatus() == CellStatus.SICK;
+
+    /**
+     * @param pos is the position of the cell from which the neighbors are to be checked for indefectibility.
+     *            only cells that have the status HEALTHY or MASKED can be infected
      */
     public List<Integer> getInfectableNeighbours(int pos) {
-        List<Integer> neighbours = new ArrayList<>();
+        return Arrays.stream(Direction.values())
+                .map(direction -> getCellNeighbour(pos, direction))
+                .filter(isInfectable)
+                .map(board::indexOf)
+                .collect(Collectors.toList());
+    }
 
-        for (Direction d : Direction.values()) {
-            if (getCellNeighbour(pos, d).getStatus() == CellStatus.HEALTHY || getCellNeighbour(pos, d).getStatus() == CellStatus.MASKED) {
-                neighbours.add(board.indexOf(getCellNeighbour(pos, d)));
-            }
-        }
-        return neighbours;
+    /**
+     * @param cell from which the neighbors are to be checked for indefectibility.
+     *             only cells that have the status HEALTHY or MASKED can be infected
+     */
+    public List<Integer> getInfectableNeighbours(Cell cell) {
+        return getInfectableNeighbours(board.indexOf(cell));
     }
 
     /**
@@ -132,7 +144,7 @@ public class AK {
      * @param probaOfInfection probability of infection in percent
      */
     public void setProbaOfInfection(int probaOfInfection) {
-        if (!isInPercentage(probaOfInfection))
+        if (isNOTPercentage(probaOfInfection))
             throw new IllegalArgumentException("probability of infection must be a percentage value between 0 and 100 (inclusive)");
 
         this.probaOfInfection = probaOfInfection;
@@ -149,7 +161,7 @@ public class AK {
      * @param maskModifier probability-of-infection-modifier when wearing a mask in percent
      */
     public void setMaskModifier(int maskModifier) {
-        if (!isInPercentage(maskModifier))
+        if (isNOTPercentage(maskModifier))
             throw new IllegalArgumentException("Mask-modifier must be a percentage value between 0 and 100 (inclusive)");
 
         this.maskModifier = maskModifier;
@@ -166,7 +178,7 @@ public class AK {
      * @param probaOfDead is the probability if an infection is deadly in percent
      */
     public void setProbaOfDead(int probaOfDead) {
-        if (!isInPercentage(probaOfDead))
+        if (isNOTPercentage(probaOfDead))
             throw new IllegalArgumentException("probability of dead must be a percentage value  between 0 and 100 (inclusive)");
         this.probaOfDead = probaOfDead;
     }
@@ -174,8 +186,8 @@ public class AK {
     /**
      * @param f ensures that a transferred value is a percentage value in the range from 0 to 100 inclusive
      */
-    private boolean isInPercentage(float f) {
-        return f >= 0 && 100 >= f;
+    private boolean isNOTPercentage(float f) {
+        return f < 0 || 100 < f;
     }
 
     /**
@@ -185,7 +197,7 @@ public class AK {
      * @return true if the event will happen
      */
     private boolean willEventHappen(float probability) {
-        if (!isInPercentage(probability))
+        if (isNOTPercentage(probability))
             throw new IllegalArgumentException("probability must be a percentage value between 0 and 100 (inclusive)");
 
         return Math.random() * 100 < probability;
@@ -199,34 +211,63 @@ public class AK {
      * @return true if the event will happen
      */
     private boolean willEventHappen(float probability, float reductionModifier) {
-        if (!isInPercentage(probability) || !isInPercentage(reductionModifier))
+        if (isNOTPercentage(probability) || isNOTPercentage(reductionModifier))
             throw new IllegalArgumentException("probability & modifier must be a percentage value between 0 and 100 (inclusive)");
 
         probability -= probability * (reductionModifier / 100);
         return willEventHappen(probability);
     }
 
-    public void update() {
-        ArrayList<Integer> newInfected = new ArrayList<>();
+    /**
+     * @return all cells that have the possibility of being infected during the next run
+     */
+    private List<Integer> getPossibleInfections() {
+        return board.stream()
+                .filter(isSick)
+                .map(this::getInfectableNeighbours)
+                .flatMap(List::stream)
+                .collect(Collectors.toList());
+    }
 
-        for (Cell cell : board) {
-            if (cell.getStatus() != CellStatus.SICK)
-                continue;
+    /**
+     * @param infectable cells that have the possibility of being infected
+     * @return cells that will be infected
+     */
+    private List<Integer> getNewInfections(List<Integer> infectable) {
+        return infectable.stream()
+                .filter(cellPos -> board.get(cellPos).getStatus() == CellStatus.MASKED ? willEventHappen(probaOfInfection, maskModifier) : willEventHappen(probaOfInfection))
+                .collect(Collectors.toList());
+    }
 
-            for (Integer neighbour : getInfectableNeighbours(board.indexOf(cell))) {
-                if (board.get(neighbour).getStatus() == CellStatus.MASKED ? willEventHappen(probaOfInfection, maskModifier) : willEventHappen(probaOfInfection)) {
-                    newInfected.add(neighbour);
-                }
-            }
+    /**
+     * infects all cells that are passed on to it
+     *
+     * @param infections all cells that will be infected
+     */
+    private void setNewInfections(List<Integer> infections) {
+        infections.forEach(this::infect);
+    }
 
-            if (cell.getTicksTillEvent() < 0) {
-                cell.setStatus(willEventHappen(probaOfDead) ? CellStatus.DEAD : CellStatus.IMMUNE);
-            }
+    /**
+     * reduce the ticks till event of all sick cells by 1
+     */
+    private void reduceCellTicks() {
+        board.stream().
+                filter(isSick)
+                .forEach(cell -> cell.setTicksTillEvent(cell.getTicksTillEvent() - 1));
+    }
 
-            cell.setTicksTillEvent(cell.getTicksTillEvent() - 1);
+    //name ueberdenken
+    private void setPostInfected() {
+        board.stream()
+                .filter(isSick).filter(cell -> cell.getTicksTillEvent() <= 0)
+                .forEach(cell -> cell.setStatus(willEventHappen(probaOfDead) ? CellStatus.DEAD : CellStatus.IMMUNE));
+    }
 
-        }
-        newInfected.forEach(this::infect);
+    public void updateSimulation() {
+        setNewInfections(getNewInfections(getPossibleInfections()));
+        setPostInfected();
+        reduceCellTicks();
     }
 
     /**
@@ -242,18 +283,15 @@ public class AK {
      */
     @Override
     public String toString() {
-        String str = "";
-
+        StringBuilder str = new StringBuilder();
+        board.stream().filter(cell -> board.indexOf(cell) % edgeLength == edgeLength - 1).map(Cell::toString).collect(Collectors.joining("\n"));
         Cell[] c = board.toArray(Cell[]::new);
-
         for (int i = 0; i < c.length; i++) {
-            str += c[i].toString();
-
+            str.append(c[i].toString());
             if (i % edgeLength == edgeLength - 1) {
-                str += "\n";
+                str.append("\n");
             }
-
         }
-        return str;
+        return str.toString();
     }
 }

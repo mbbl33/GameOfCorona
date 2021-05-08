@@ -1,5 +1,5 @@
-GameOfCorona.java
- GameOfCorona
+Main.java
+ Main
 Point.java
  Point
 CellStatus.java
@@ -8,15 +8,15 @@ Direction.java
  Direction
 Grid.java
  Grid
-AK.java
- AK
- AK$1
-Cell.java
- Cell
-Main.java
- Main
 DI.java
  DI
  DI$1
+Cell.java
+ Cell
+GameOfCorona.java
+ GameOfCorona
 HorizontalSlider.java
  HorizontalSlider
+AK.java
+ AK
+ AK$1

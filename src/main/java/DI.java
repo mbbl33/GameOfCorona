@@ -96,7 +96,7 @@ public class DI extends PApplet {
         updateSliders();
 
         if (delay + time < millis()) {
-            ak.update();
+            ak.updateSimulation();
             System.out.println(ak);
             time = millis();
         }
