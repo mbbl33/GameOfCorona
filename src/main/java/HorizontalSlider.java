@@ -2,13 +2,7 @@
  * @author Maximilian Biebl
  * A slider an interaction component to change values in a certain range
  */
-public class HorizontalSlider {
-    //the position of the upper left corner of the slider
-    private int xPos, yPos;
-
-    //the length and heigt of the slider
-    private int length, height;
-
+public class HorizontalSlider extends InteractionComponent {
     //The range of values from where to where the slider goes and the position of the head
     private int minValue, maxValue, range, headPos;
 
@@ -16,10 +10,7 @@ public class HorizontalSlider {
     private double step;
 
     //the different colors
-    private int colorHead, colorActive, colorOff, colorText;
-
-    //the presentation class in which the slider is used
-    private DI di;
+    private int  colorActive, colorOff, colorText;
 
     //description of the slider
     private String title;
@@ -31,21 +22,16 @@ public class HorizontalSlider {
      * @param di           the presentation class in which the slider is used
      * @param xPos         the x Position of the upper left corner
      * @param yPos         the y Position of the upper left corner
-     * @param length       the length of the slider in pixels
+     * @param width       the length of the slider in pixels
      * @param height       the height of the slider in pixels
      * @param minValue     the smallest possible value in the slider
      * @param maxValue     the biggest possible value in the slider
      * @param defaultValue the value of the slider at the beginning
      * @param title        description of the slider
      */
-    public HorizontalSlider(DI di, int xPos, int yPos, int length, int height, int minValue, int maxValue, int defaultValue, String title) {
-        this.di = di;
+    public HorizontalSlider(DI di, int xPos, int yPos, int width, int height, int minValue, int maxValue, int defaultValue, String title) {
 
-        this.xPos = xPos;
-        this.yPos = yPos;
-
-        this.length = length;
-        this.height = height;
+        super(di,xPos,yPos,width,height);
 
         if (minValue > maxValue)
             throw new IllegalArgumentException("minValue is bigger than maxValue");
@@ -53,7 +39,7 @@ public class HorizontalSlider {
         this.maxValue = maxValue;
 
         this.range = maxValue - minValue;
-        this.step = (float) length / range;
+        this.step = (float) width / range;
 
         if (defaultValue < minValue || maxValue < defaultValue)
             throw new IllegalArgumentException("default Position have to be in Range");
@@ -61,7 +47,6 @@ public class HorizontalSlider {
 
         this.title = title;
 
-        colorHead = di.color(255, 0, 0);
         colorActive = di.color(0, 0, 255);
         colorOff = di.color(150);
         colorText = di.color(255);
@@ -71,61 +56,44 @@ public class HorizontalSlider {
      * moves the slider to the mouse position, if inside the slider
      */
     public void moveSlider() {
-        if (di.mousePressed && (di.mouseButton == di.LEFT) && isInX(di.mouseX) && isInY(di.mouseY)) {
-            headPos = di.mouseX - xPos;
+        if (isClicked()) {
+            headPos = DI.mouseX - XPOS;
             if (headPos <= 0) {
                 //left border
-                di.text(xPos, headPos, yPos);
+                DI.text(XPOS, headPos, YPOS);
                 headPos = 0;
 
-            } else if (xPos + length <= headPos) {
+            } else if (XPOS + WIDTH <= headPos) {
                 //right border
-                headPos = xPos + length;
+                headPos = XPOS + WIDTH;
             }
         }
     }
 
     /**
-     * @param pos an x coordinate
-     * @return if is in the hitbox on the x level
-     */
-    public boolean isInX(int pos) {
-        return xPos < pos && pos < xPos + length;
-    }
-
-    /**
-     * @param pos an y coordinate
-     * @return if is in the hitbox on the y level
-     */
-    public boolean isInY(int pos) {
-        return yPos < pos && pos < yPos + height;
-    }
-
-    /**
-     * draws the diffrent parts of the slider and writes the title with current value
+     * draws the different parts of the slider and writes the title with current value
      */
     public void drawSlider() {
-        di.pushMatrix();
-        di.translate(xPos, yPos);
+        DI.pushMatrix();
+        DI.translate(XPOS, YPOS);
 
-        di.stroke(255);
+        DI.stroke(255);
 
-        di.fill(colorOff);
-        di.rect(0, 0, length, height);
+        //right part of the slider
+        DI.fill(colorOff);
+        DI.rect(0, 0, WIDTH, HEIGHT);
 
-        di.fill(colorActive);
-        di.rect(0, 0, headPos, height);
+        //left part of the slider
+        DI.fill(colorActive);
+        DI.rect(0, 0, headPos, HEIGHT);
 
-        di.fill(colorHead);
-        di.circle(headPos, height / 2, height);
+        //text in the slider
+        DI.fill(colorText);
+        DI.textAlign(DI.CENTER);
+        DI.textSize(HEIGHT / 2);
+        DI.text(title + " " + getCurrentValue(), WIDTH / 2, HEIGHT / 2);
 
-        di.fill(colorText);
-
-        di.textAlign(di.CENTER);
-        di.textSize(height / 2);
-        di.text(title + " " + getCurrentValue(), length / 2, height / 2);
-
-        di.popMatrix();
+        DI.popMatrix();
     }
 
     /**

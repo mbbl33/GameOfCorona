@@ -13,16 +13,16 @@ public class AK {
     private final List<Cell> board;
 
     //default probability of infection in percent
-    private int probaOfInfection = 50;
+    private int probaOfInfection = 25;
 
     //default Probability of infection modifier when wearing a mask in percent
-    private int maskModifier = 50;
+    private int maskModifier = 90;
 
     //highest tick number befor Cell chang random to DEAD or IMMUNE
     private int eventTickRange = 10;
 
     //default probability that an infection is deadly
-    private int probaOfDead = 50;
+    private int probaOfDeath = 40;
 
     //number of cells per row and col
     private final int edgeLength;
@@ -55,13 +55,11 @@ public class AK {
      *
      * @param pos is the position the cell that is infected
      */
-    public AK infect(int pos) {
+    public void infect(int pos) {
         if (board.get(pos).getStatus() == CellStatus.HEALTHY || board.get(pos).getStatus() == CellStatus.MASKED) {
             board.get(pos).setStatus(CellStatus.SICK);
             board.get(pos).setTicksTillEvent((int) (Math.random() * eventTickRange));
         }
-
-        return this;
     }
 
     /**
@@ -69,11 +67,9 @@ public class AK {
      *
      * @param pos is the position of the cell that is immunized
      */
-    public AK setImmunity(int pos) {
+    public void setImmunity(int pos) {
         if (board.get(pos).getStatus() != CellStatus.DEAD)
             board.get(pos).setStatus(CellStatus.IMMUNE);
-
-        return this;
     }
 
     /**
@@ -81,11 +77,13 @@ public class AK {
      *
      * @param pos is the position of the cell that is masked
      */
-    public AK giveMask(int pos) {
+    public void giveMask(int pos) {
         if (board.get(pos).getStatus() == CellStatus.HEALTHY)
             board.get(pos).setStatus(CellStatus.MASKED);
+    }
 
-        return this;
+    public void killCell(int pos){
+        board.get(pos).setStatus(CellStatus.DEAD);
     }
 
     /**
@@ -100,6 +98,7 @@ public class AK {
             case BELOW -> pos + edgeLength;
             case RIGHT -> (pos + 1) % edgeLength != 0 ? pos + 1 : -1;
         };
+
         return 0 <= difference && difference < board.size() ? board.get(difference) : new Cell().setStatus(CellStatus.DEAD);
     }
 
@@ -170,17 +169,17 @@ public class AK {
     /**
      * @return probability if an infection is deadly
      */
-    public int getProbaOfDead() {
-        return probaOfDead;
+    public int getProbaOfDeath() {
+        return probaOfDeath;
     }
 
     /**
-     * @param probaOfDead is the probability if an infection is deadly in percent
+     * @param probaOfDeath is the probability if an infection is deadly in percent
      */
-    public void setProbaOfDead(int probaOfDead) {
-        if (isNOTPercentage(probaOfDead))
+    public void setProbaOfDeath(int probaOfDeath) {
+        if (isNOTPercentage(probaOfDeath))
             throw new IllegalArgumentException("probability of dead must be a percentage value  between 0 and 100 (inclusive)");
-        this.probaOfDead = probaOfDead;
+        this.probaOfDeath = probaOfDeath;
     }
 
     /**
@@ -252,30 +251,34 @@ public class AK {
      * reduce the ticks till event of all sick cells by 1
      */
     private void reduceCellTicks() {
-        board.stream().
-                filter(isSick)
+        board.stream()
+                .filter(isSick)
                 .forEach(cell -> cell.setTicksTillEvent(cell.getTicksTillEvent() - 1));
     }
 
-    //name ueberdenken
-    private void setPostInfected() {
+    /**
+     * sets the status of the cells whose ticks till event counter has reached 0 to dead or immune, depending on the probability
+     */
+    private void updatePostInfected() {
         board.stream()
                 .filter(isSick).filter(cell -> cell.getTicksTillEvent() <= 0)
-                .forEach(cell -> cell.setStatus(willEventHappen(probaOfDead) ? CellStatus.DEAD : CellStatus.IMMUNE));
+                .forEach(cell -> cell.setStatus(willEventHappen(probaOfDeath) ? CellStatus.DEAD : CellStatus.IMMUNE));
     }
 
+    /**
+     * one run of the simulation "Tick"
+     */
     public void updateSimulation() {
         setNewInfections(getNewInfections(getPossibleInfections()));
-        setPostInfected();
+        updatePostInfected();
         reduceCellTicks();
     }
 
     /**
      * reset all cells to healthy
      */
-    public AK reset() {
-        board.forEach(cell -> cell = new Cell());
-        return this;
+    public void reset() {
+        board.forEach(cell -> cell.setStatus(CellStatus.HEALTHY));
     }
 
     /**
@@ -284,7 +287,7 @@ public class AK {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        board.stream().filter(cell -> board.indexOf(cell) % edgeLength == edgeLength - 1).map(Cell::toString).collect(Collectors.joining("\n"));
+        //board.stream().filter(cell -> board.indexOf(cell) % edgeLength == edgeLength - 1).map(Cell::toString).collect(Collectors.joining("\n"));
         Cell[] c = board.toArray(Cell[]::new);
         for (int i = 0; i < c.length; i++) {
             str.append(c[i].toString());

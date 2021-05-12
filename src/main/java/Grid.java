@@ -6,8 +6,7 @@ import java.util.Arrays;
  * To make the 1D array and the window size freely scalable.
  */
 public class Grid {
-    private final int BOARDSIZE;
-    private final int PIXELSIZE;
+    private final int BOARDSIZE, PIXELSIZE;
     private Point[] points;
 
     /**
