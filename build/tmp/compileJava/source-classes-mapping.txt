@@ -1,5 +1,5 @@
-GameOfCorona.java
- GameOfCorona
+Cell.java
+ Cell
 Point.java
  Point
 CellStatus.java
@@ -10,8 +10,6 @@ Grid.java
  Grid
 MouseMode.java
  MouseMode
-Cell.java
- Cell
 Main.java
  Main
 DI.java
@@ -19,6 +17,8 @@ DI.java
  DI$1
 Button.java
  Button
+GameOfCorona.java
+ GameOfCorona
 HorizontalSlider.java
  HorizontalSlider
 AK.java

@@ -3,11 +3,13 @@ import java.util.function.*;
 import java.util.stream.*;
 
 /**
- * @author Maximilian Biebl
  * The application core for "Game of Corona"
  * A primitive virus simulation
+ *
+ * @author Maximilian Biebl
+ * @version 1.0
  */
-public class AK {
+public class AK implements GameOfCorona {
 
     //the board on which everything happens
     private final List<Cell> board;
@@ -82,7 +84,12 @@ public class AK {
             board.get(pos).setStatus(CellStatus.MASKED);
     }
 
-    public void killCell(int pos){
+    /**
+     * kill a cell
+     *
+     * @param pos is the position of the cell that is killed
+     */
+    public void killCell(int pos) {
         board.get(pos).setStatus(CellStatus.DEAD);
     }
 

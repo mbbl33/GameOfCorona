@@ -2,6 +2,12 @@ import processing.core.*;
 
 import java.util.*;
 
+/**
+ * Representation and interaction class for the simulation "Game of Corona"
+ *
+ * @author Maximilian Biebl
+ * @version 1.0
+ */
 public class DI extends PApplet {
     //the window size and setting it to a 3/4 aspect ratio
     private final int HEIGHT = 1000, WIDTH = (HEIGHT / 4) * 3;
@@ -11,7 +17,7 @@ public class DI extends PApplet {
     private int fieldSize;
 
     //the logic core of the simulation
-    private AK ak;
+    private GameOfCorona ak;
 
     //current state of the mouse
     private MouseMode mouseStatus = MouseMode.DEFAULT_MODE;
@@ -44,7 +50,7 @@ public class DI extends PApplet {
     }
 
     /**
-     * application core and display components as well as interaction components are initialized
+     * application core, display components as well as interaction components are initialized
      */
     public void setup() {
         this.ak = new AK(CELLS_PER_ROW);
@@ -56,6 +62,9 @@ public class DI extends PApplet {
         setupInteractionComponents();
     }
 
+    /**
+     * initializes the slider and buttons
+     */
     private void setupInteractionComponents() {
         int itemDistance = HEIGHT / 90;
         int YOrigin = WIDTH + itemDistance;
@@ -64,6 +73,10 @@ public class DI extends PApplet {
 
     }
 
+    /**
+     * @param itemDistance the distance between individual items and the edge
+     * @param yOrigin      a new 0 point on the y axis to align the items with it
+     */
     private void initializeButtons(int itemDistance, int yOrigin) {
         int buttonXOrigin = WIDTH / 2 + 2 * itemDistance;
         resetButton = new Button(this, buttonXOrigin, yOrigin, height / 20, height / 20, loadImage("reset.png"));
@@ -73,7 +86,10 @@ public class DI extends PApplet {
         killButton = new Button(this, buttonXOrigin + 4 * (height / 20) + 4 * itemDistance, yOrigin, height / 20, height / 20, loadImage("kill.png"));
     }
 
-
+    /**
+     * @param itemDistance the distance between individual items and the edge
+     * @param yOrigin      a new 0 point on the y axis to align the items with it
+     */
     private void initializeSliders(int itemDistance, int yOrigin) {
         int sliderLength = WIDTH / 2;
         int sliderHeight = HEIGHT / 30;
@@ -83,6 +99,9 @@ public class DI extends PApplet {
         maskModifikator = new HorizontalSlider(this, itemDistance, yOrigin + 3 * sliderHeight + 3 * itemDistance, sliderLength, sliderHeight, 0, 100, ak.getMaskModifier(), "infection reduktion by mask");
     }
 
+    /**
+     * assigns an image to a cell state
+     */
     private void initializeCellImgs() {
         cell_Img_Map = Map.of(CellStatus.HEALTHY, loadImage("healthy.png"),
                 CellStatus.MASKED, loadImage("masked.png"),
@@ -91,6 +110,9 @@ public class DI extends PApplet {
                 CellStatus.SICK, loadImage("sick.png"));
     }
 
+    /**
+     * assigns an image to a mouse state
+     */
     private void initializeMouseIcons() {
         mouse_Icons_Map = Map.of(MouseMode.DEFAULT_MODE, loadImage("defaultMouse.png"),
                 MouseMode.INFECTION_MODE, loadImage("virusMouse.png"),
@@ -99,8 +121,10 @@ public class DI extends PApplet {
                 MouseMode.KILL_MODE, loadImage("killMouse.png"));
     }
 
+    /**
+     * paints the background using a grid
+     */
     private void drawBack() {
-        //malt den hintergrund anhand raster
         background(0);
         fill(0);
         stroke(255);
@@ -108,20 +132,40 @@ public class DI extends PApplet {
                 .forEach(point -> rect(point.getX(), point.getY(), fieldSize, fieldSize));
     }
 
+    /**
+     * draws each cell at its position using a grid
+     */
     private void drawCells() {
         imageMode(CENTER);
         List<Cell> board = ak.getBoard();
         board.forEach(cell -> image(cell_Img_Map.get(cell.getStatus()), calcCellXpos(board, cell), calcCellYpos(board, cell), fieldSize, fieldSize));
     }
 
+    /**
+     * calculated the x position of the Cell using a grid
+     *
+     * @param board the board on which the cell is located
+     * @param cell  the cell whose position is determined
+     * @return the x pos of the cell in the window
+     */
     private int calcCellXpos(List<Cell> board, Cell cell) {
         return grid.getPoints()[board.indexOf(cell)].getX() + fieldSize / 2;
     }
 
+    /**
+     * calculated the y position of the Cell using a grid
+     *
+     * @param board the board on which the cell is located
+     * @param cell  the cell whose position is determined
+     * @return the y pos of the cell in the window
+     */
     private int calcCellYpos(List<Cell> board, Cell cell) {
         return grid.getPoints()[board.indexOf(cell)].getY() + fieldSize / 2;
     }
 
+    /**
+     * draws all sliders
+     */
     private void drawSliders() {
         updateSpeed.drawSlider();
         probaOfInfection.drawSlider();
@@ -129,6 +173,9 @@ public class DI extends PApplet {
         probaOfDeath.drawSlider();
     }
 
+    /**
+     * Updates the sliders when they have been moved and adapts the values in the simulation
+     */
     private void updateSliders() {
         updateSpeed.moveSlider();
         delay = updateSpeed.getCurrentValue();
@@ -143,6 +190,9 @@ public class DI extends PApplet {
         ak.setProbaOfDeath(probaOfDeath.getCurrentValue());
     }
 
+    /**
+     * draws all buttons
+     */
     private void drawButtons() {
         resetButton.drawButton();
         infectionButton.drawButton();
@@ -152,8 +202,10 @@ public class DI extends PApplet {
 
     }
 
+    /**
+     * when a button is pressed, the corresponding action is carried out
+     */
     private void updateButtons() {
-        imageMode(CORNER);
         if (resetButton.isClicked()) ak.reset();
         if (infectionButton.isClicked()) mouseStatus = MouseMode.INFECTION_MODE;
         if (maskButton.isClicked()) mouseStatus = MouseMode.MASK_MODE;
@@ -162,11 +214,17 @@ public class DI extends PApplet {
 
     }
 
+    /**
+     * sets the mouse icon to match the corresponding mouse mode
+     */
     private void updateMouseMode() {
         cursor(mouse_Icons_Map.get(mouseStatus));
     }
 
-    private void clickEvent() {
+    /**
+     * changes the status of a cell depending on the mouse mode
+     */
+    private void clickedCell() {
         if (mousePressed && (mouseButton == LEFT) && mouseX < WIDTH && mouseY < WIDTH) {
             int cell = getCell();
             switch (mouseStatus) {
@@ -178,12 +236,18 @@ public class DI extends PApplet {
         }
     }
 
+    /**
+     * @return the position of a cell in the board, depending on the mouse position
+     */
     private int getCell() {
         int x = mouseX / fieldSize;
         int y = mouseY / fieldSize;
         return x + y * CELLS_PER_ROW;
     }
 
+    /**
+     * "Gameloop" of the simulation
+     */
     @Override
     public void draw() {
         drawBack();
@@ -196,7 +260,9 @@ public class DI extends PApplet {
         updateButtons();
         updateMouseMode();
 
-        clickEvent();
+        clickedCell();
+
+        //ensures that the simulation is only updated in a certain interval
         if (delay + time < millis()) {
             ak.updateSimulation();
             time = millis();
