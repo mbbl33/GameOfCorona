@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class DI extends PApplet {
     //the window size and setting it to a 3/4 aspect ratio
-    private final int HEIGHT = 1000, WIDTH = (HEIGHT / 4) * 3;
+    private static final int HEIGHT = 1000, WIDTH = (HEIGHT / 4) * 3;
 
     //grid on which the cells are aligned
     private Grid grid;
@@ -23,23 +23,23 @@ public class DI extends PApplet {
     private MouseMode mouseStatus = MouseMode.DEFAULT_MODE;
 
     //to interact with the simulation
-    private HorizontalSlider probaOfInfection, maskModifikator, probaOfDeath, updateSpeed;
+    private HorizontalSlider probaOfInfection, maskModifier, probaOfDeath, updateSpeed;
 
     //buttons with the simulation
-    private Button resetButton, infectionButton, maskButton, vaccinButton, killButton;
+    private Button resetButton, infectionButton, maskButton, vaccineButton, killButton;
 
     //assigns an image to a cell state
-    private Map<CellStatus, PImage> cell_Img_Map = new HashMap<>();
+    private Map<CellStatus, PImage> cellImageMap = new HashMap<>();
 
     //assigns an image to a mouse state
-    private Map<MouseMode, PImage> mouse_Icons_Map = new HashMap<>();
+    private Map<MouseMode, PImage> mouseImageMap = new HashMap<>();
 
     //for the frequency in which the update is called
     private int time = 0;
     private int delay = 2000;
 
     //number of cells per row, this number squared is the total number of cells
-    private final int CELLS_PER_ROW = 10;
+    private static final int CELLS_PER_ROW = 10;
 
     /**
      * setting the window size
@@ -70,7 +70,6 @@ public class DI extends PApplet {
         int YOrigin = WIDTH + itemDistance;
         initializeButtons(itemDistance, YOrigin);
         initializeSliders(itemDistance, YOrigin);
-
     }
 
     /**
@@ -79,11 +78,11 @@ public class DI extends PApplet {
      */
     private void initializeButtons(int itemDistance, int yOrigin) {
         int buttonXOrigin = WIDTH / 2 + 2 * itemDistance;
-        resetButton = new Button(this, buttonXOrigin, yOrigin, height / 20, height / 20, loadImage("reset.png"));
-        infectionButton = new Button(this, buttonXOrigin + height / 20 + itemDistance, yOrigin, height / 20, height / 20, loadImage("virus.png"));
-        maskButton = new Button(this, buttonXOrigin + 2 * (height / 20) + 2 * itemDistance, yOrigin, height / 20, height / 20, loadImage("mask.png"));
-        vaccinButton = new Button(this, buttonXOrigin + 3 * (height / 20) + 3 * itemDistance, yOrigin, height / 20, height / 20, loadImage("vaccination.png"));
-        killButton = new Button(this, buttonXOrigin + 4 * (height / 20) + 4 * itemDistance, yOrigin, height / 20, height / 20, loadImage("kill.png"));
+        resetButton = new Button(this, buttonXOrigin, yOrigin, height / 20, height / 20, loadImage("reset.png"), null);
+        infectionButton = new Button(this, buttonXOrigin + height / 20 + itemDistance, yOrigin, height / 20, height / 20, loadImage("virus.png"), MouseMode.INFECTION_MODE);
+        maskButton = new Button(this, buttonXOrigin + 2 * (height / 20) + 2 * itemDistance, yOrigin, height / 20, height / 20, loadImage("mask.png"), MouseMode.MASK_MODE);
+        vaccineButton = new Button(this, buttonXOrigin + 3 * (height / 20) + 3 * itemDistance, yOrigin, height / 20, height / 20, loadImage("vaccination.png"), MouseMode.VACCINE_MODE);
+        killButton = new Button(this, buttonXOrigin + 4 * (height / 20) + 4 * itemDistance, yOrigin, height / 20, height / 20, loadImage("kill.png"), MouseMode.KILL_MODE);
     }
 
     /**
@@ -96,14 +95,14 @@ public class DI extends PApplet {
         updateSpeed = new HorizontalSlider(this, itemDistance, yOrigin, sliderLength, sliderHeight, 100, 2500, 1000, "ms delay between updates");
         probaOfInfection = new HorizontalSlider(this, itemDistance, yOrigin + sliderHeight + itemDistance, sliderLength, sliderHeight, 0, 100, ak.getProbaOfInfection(), "infection probability");
         probaOfDeath = new HorizontalSlider(this, itemDistance, yOrigin + 2 * sliderHeight + 2 * itemDistance, sliderLength, sliderHeight, 0, 100, ak.getProbaOfDeath(), "Death Probability");
-        maskModifikator = new HorizontalSlider(this, itemDistance, yOrigin + 3 * sliderHeight + 3 * itemDistance, sliderLength, sliderHeight, 0, 100, ak.getMaskModifier(), "infection reduktion by mask");
+        maskModifier = new HorizontalSlider(this, itemDistance, yOrigin + 3 * sliderHeight + 3 * itemDistance, sliderLength, sliderHeight, 0, 100, ak.getMaskModifier(), "infection reduktion by mask");
     }
 
     /**
      * assigns an image to a cell state
      */
     private void initializeCellImgs() {
-        cell_Img_Map = Map.of(CellStatus.HEALTHY, loadImage("healthy.png"),
+        cellImageMap = Map.of(CellStatus.HEALTHY, loadImage("healthy.png"),
                 CellStatus.MASKED, loadImage("masked.png"),
                 CellStatus.IMMUNE, loadImage("immune.png"),
                 CellStatus.DEAD, loadImage("dead.png"),
@@ -114,7 +113,7 @@ public class DI extends PApplet {
      * assigns an image to a mouse state
      */
     private void initializeMouseIcons() {
-        mouse_Icons_Map = Map.of(MouseMode.DEFAULT_MODE, loadImage("defaultMouse.png"),
+        mouseImageMap = Map.of(MouseMode.DEFAULT_MODE, loadImage("defaultMouse.png"),
                 MouseMode.INFECTION_MODE, loadImage("virusMouse.png"),
                 MouseMode.MASK_MODE, loadImage("maskMouse.png"),
                 MouseMode.VACCINE_MODE, loadImage("vaccinationMouse.png"),
@@ -129,7 +128,7 @@ public class DI extends PApplet {
         fill(0);
         stroke(255);
         Arrays.stream(grid.getPoints())
-                .forEach(point -> rect(point.getX(), point.getY(), fieldSize, fieldSize));
+                .forEach(point -> rect((float) point.getX(), (float) point.getY(), fieldSize, fieldSize));
     }
 
     /**
@@ -138,7 +137,7 @@ public class DI extends PApplet {
     private void drawCells() {
         imageMode(CENTER);
         List<Cell> board = ak.getBoard();
-        board.forEach(cell -> image(cell_Img_Map.get(cell.getStatus()), calcCellXpos(board, cell), calcCellYpos(board, cell), fieldSize, fieldSize));
+        board.forEach(cell -> image(cellImageMap.get(cell.getStatus()), calcCellXpos(board, cell), calcCellYpos(board, cell), fieldSize, fieldSize));
     }
 
     /**
@@ -149,7 +148,7 @@ public class DI extends PApplet {
      * @return the x pos of the cell in the window
      */
     private int calcCellXpos(List<Cell> board, Cell cell) {
-        return grid.getPoints()[board.indexOf(cell)].getX() + fieldSize / 2;
+        return (int) grid.getPoints()[board.indexOf(cell)].getX() + fieldSize / 2;
     }
 
     /**
@@ -160,7 +159,7 @@ public class DI extends PApplet {
      * @return the y pos of the cell in the window
      */
     private int calcCellYpos(List<Cell> board, Cell cell) {
-        return grid.getPoints()[board.indexOf(cell)].getY() + fieldSize / 2;
+        return (int) grid.getPoints()[board.indexOf(cell)].getY() + fieldSize / 2;
     }
 
     /**
@@ -169,7 +168,7 @@ public class DI extends PApplet {
     private void drawSliders() {
         updateSpeed.drawSlider();
         probaOfInfection.drawSlider();
-        maskModifikator.drawSlider();
+        maskModifier.drawSlider();
         probaOfDeath.drawSlider();
     }
 
@@ -183,8 +182,8 @@ public class DI extends PApplet {
         probaOfInfection.moveSlider();
         ak.setProbaOfInfection(probaOfInfection.getCurrentValue());
 
-        maskModifikator.moveSlider();
-        ak.setMaskModifier(maskModifikator.getCurrentValue());
+        maskModifier.moveSlider();
+        ak.setMaskModifier(maskModifier.getCurrentValue());
 
         probaOfDeath.moveSlider();
         ak.setProbaOfDeath(probaOfDeath.getCurrentValue());
@@ -197,7 +196,7 @@ public class DI extends PApplet {
         resetButton.drawButton();
         infectionButton.drawButton();
         maskButton.drawButton();
-        vaccinButton.drawButton();
+        vaccineButton.drawButton();
         killButton.drawButton();
 
     }
@@ -209,7 +208,7 @@ public class DI extends PApplet {
         if (resetButton.isClicked()) ak.reset();
         if (infectionButton.isClicked()) mouseStatus = MouseMode.INFECTION_MODE;
         if (maskButton.isClicked()) mouseStatus = MouseMode.MASK_MODE;
-        if (vaccinButton.isClicked()) mouseStatus = MouseMode.VACCINE_MODE;
+        if (vaccineButton.isClicked()) mouseStatus = MouseMode.VACCINE_MODE;
         if (killButton.isClicked()) mouseStatus = MouseMode.KILL_MODE;
 
     }
@@ -218,7 +217,7 @@ public class DI extends PApplet {
      * sets the mouse icon to match the corresponding mouse mode
      */
     private void updateMouseMode() {
-        cursor(mouse_Icons_Map.get(mouseStatus));
+        cursor(mouseImageMap.get(mouseStatus));
     }
 
     /**
@@ -265,6 +264,7 @@ public class DI extends PApplet {
         //ensures that the simulation is only updated in a certain interval
         if (delay + time < millis()) {
             ak.updateSimulation();
+            System.out.println(ak.toString());
             time = millis();
         }
 

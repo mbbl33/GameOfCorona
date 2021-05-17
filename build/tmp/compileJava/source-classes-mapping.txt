@@ -1,20 +1,16 @@
-Cell.java
- Cell
-Point.java
- Point
+Main.java
+ Main
 CellStatus.java
  CellStatus
 Direction.java
  Direction
 Grid.java
  Grid
-MouseMode.java
- MouseMode
-Main.java
- Main
 DI.java
  DI
  DI$1
+Cell.java
+ Cell
 Button.java
  Button
 GameOfCorona.java
@@ -24,5 +20,7 @@ HorizontalSlider.java
 AK.java
  AK
  AK$1
+MouseMode.java
+ MouseMode
 InteractionComponent.java
  InteractionComponent

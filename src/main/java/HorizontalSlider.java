@@ -3,17 +3,20 @@
  * A slider an interaction component to change values in a certain range
  */
 public class HorizontalSlider extends InteractionComponent {
-    //The range of values from where to where the slider goes and the position of the head
-    private int minValue, maxValue, range, headPos;
+    //The range of values from where to where the slider goes
+    private final int minValue, maxValue, range;
 
     //the increment for individual values
-    private double step;
+    private final double step;
 
     //the different colors
-    private int  colorActive, colorOff, colorText;
+    private final int colorActive, colorOff, colorText;
+
+    // the position of the head
+    private int headPos;
 
     //description of the slider
-    private String title;
+    private final String title;
 
 
     /**
@@ -57,15 +60,15 @@ public class HorizontalSlider extends InteractionComponent {
      */
     public void moveSlider() {
         if (isClicked()) {
-            headPos = DI.mouseX - XPOS;
+            headPos = di.mouseX - xPos;
             if (headPos <= 0) {
                 //left border
-                DI.text(XPOS, headPos, YPOS);
+                di.text(xPos, headPos, yPOS);
                 headPos = 0;
 
-            } else if (XPOS + WIDTH <= headPos) {
+            } else if (xPos + width <= headPos) {
                 //right border
-                headPos = XPOS + WIDTH;
+                headPos = xPos + width;
             }
         }
     }
@@ -74,26 +77,26 @@ public class HorizontalSlider extends InteractionComponent {
      * draws the different parts of the slider and writes the title with current value
      */
     public void drawSlider() {
-        DI.pushMatrix();
-        DI.translate(XPOS, YPOS);
+        di.pushMatrix();
+        di.translate(xPos, yPOS);
 
-        DI.stroke(255);
+        di.stroke(255);
 
         //right part of the slider
-        DI.fill(colorOff);
-        DI.rect(0, 0, WIDTH, HEIGHT);
+        di.fill(colorOff);
+        di.rect(0, 0, width, height);
 
         //left part of the slider
-        DI.fill(colorActive);
-        DI.rect(0, 0, headPos, HEIGHT);
+        di.fill(colorActive);
+        di.rect(0, 0, headPos, height);
 
         //text in the slider
-        DI.fill(colorText);
-        DI.textAlign(DI.CENTER);
-        DI.textSize(HEIGHT / 2);
-        DI.text(title + " " + getCurrentValue(), WIDTH / 2, HEIGHT / 2);
+        di.fill(colorText);
+        di.textAlign(di.CENTER);
+        di.textSize(height / 2);
+        di.text(title + " " + getCurrentValue(), width / 2, height / 2);
 
-        DI.popMatrix();
+        di.popMatrix();
     }
 
     /**

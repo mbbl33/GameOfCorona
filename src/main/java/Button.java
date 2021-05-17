@@ -5,6 +5,7 @@ import processing.core.*;
  */
 public class Button extends InteractionComponent {
     private final PImage icon;
+    private final MouseMode mouseMode;
 
     /**
      * A Button
@@ -16,17 +17,18 @@ public class Button extends InteractionComponent {
      * @param height the height of the button in pixels
      * @param icon   pictorial representation of the button
      */
-    Button(DI di, int xPos, int yPos, int width, int height, PImage icon) {
+    Button(DI di, int xPos, int yPos, int width, int height, PImage icon, MouseMode mode) {
         super(di, xPos, yPos, width, height);
         this.icon = icon;
+        this.mouseMode = mode;
     }
 
     /**
      * paints the button at the previously specified position
      */
     public void drawButton() {
-        DI.imageMode(DI.CORNER);
-        DI.image(icon, XPOS, YPOS, WIDTH, HEIGHT);
+        di.imageMode(di.CORNER);
+        di.image(icon, xPos, yPOS, width, height);
     }
 
     /**
@@ -34,6 +36,10 @@ public class Button extends InteractionComponent {
      */
     public boolean isClicked() {
         return super.isClicked();
+    }
+
+    public MouseMode getMouseMode() {
+        return mouseMode;
     }
 
 }

@@ -11,23 +11,33 @@ import java.util.stream.*;
  */
 public class AK implements GameOfCorona {
 
-    //the board on which everything happens
+    // The board on which everything happens
     private final List<Cell> board;
 
-    //default probability of infection in percent
+    // Default probability of infection in percent
     private int probaOfInfection = 25;
 
-    //default Probability of infection modifier when wearing a mask in percent
+    // Default probability of infection modifier when wearing a mask in percent
     private int maskModifier = 90;
 
-    //highest tick number befor Cell chang random to DEAD or IMMUNE
-    private int eventTickRange = 10;
+    // Highest tick number before Cell change random to DEAD or IMMUNE
+    private final int eventTickRange = 10;
 
-    //default probability that an infection is deadly
+    // Default probability that an infection is deadly
     private int probaOfDeath = 40;
 
-    //number of cells per row and col
+    // Number of cells per row and col
     private final int edgeLength;
+
+    /**
+     * prove if an cell is infectable
+     */
+    private final Predicate<Cell> isInfectable = cell -> cell.getStatus() == CellStatus.HEALTHY || cell.getStatus() == CellStatus.MASKED;
+
+    /**
+     * prove if an cell is sick
+     */
+    private final Predicate<Cell> isSick = cell -> cell.getStatus() == CellStatus.SICK;
 
     /**
      * application core for "Game of Corona"
@@ -59,8 +69,7 @@ public class AK implements GameOfCorona {
      */
     public void infect(int pos) {
         if (board.get(pos).getStatus() == CellStatus.HEALTHY || board.get(pos).getStatus() == CellStatus.MASKED) {
-            board.get(pos).setStatus(CellStatus.SICK);
-            board.get(pos).setTicksTillEvent((int) (Math.random() * eventTickRange));
+            board.get(pos).setStatus(CellStatus.SICK).setTicksTillEvent((int) (Math.random() * eventTickRange));
         }
     }
 
@@ -109,15 +118,6 @@ public class AK implements GameOfCorona {
         return 0 <= difference && difference < board.size() ? board.get(difference) : new Cell().setStatus(CellStatus.DEAD);
     }
 
-    /**
-     * prove if an cell is infectable
-     */
-    private final Predicate<Cell> isInfectable = cell -> cell.getStatus() == CellStatus.HEALTHY || cell.getStatus() == CellStatus.MASKED;
-
-    /**
-     * prove if an cell is sick
-     */
-    private final Predicate<Cell> isSick = cell -> cell.getStatus() == CellStatus.SICK;
 
     /**
      * @param pos is the position of the cell from which the neighbors are to be checked for indefectibility.
@@ -293,15 +293,8 @@ public class AK implements GameOfCorona {
      */
     @Override
     public String toString() {
-        StringBuilder str = new StringBuilder();
-        //board.stream().filter(cell -> board.indexOf(cell) % edgeLength == edgeLength - 1).map(Cell::toString).collect(Collectors.joining("\n"));
-        Cell[] c = board.toArray(Cell[]::new);
-        for (int i = 0; i < c.length; i++) {
-            str.append(c[i].toString());
-            if (i % edgeLength == edgeLength - 1) {
-                str.append("\n");
-            }
-        }
-        return str.toString();
+        return board.stream()
+                .map(cell -> board.indexOf(cell) % edgeLength == edgeLength - 1 ? cell.toString() + "\n" : cell.toString())
+                .collect(Collectors.joining(""));
     }
 }

@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.awt.Point;
 
 /**
  * @author Maximilian Biebl
@@ -6,7 +7,7 @@ import java.util.Arrays;
  * To make the 1D array and the window size freely scalable.
  */
 public class Grid {
-    private final int BOARDSIZE, PIXELSIZE;
+    private final int boardSize, pixelSize;
     private Point[] points;
 
     /**
@@ -18,8 +19,8 @@ public class Grid {
     Grid(int boardSize, int pixelSize) {
         if (Math.pow(Math.sqrt(boardSize),2)!= boardSize) throw new IllegalArgumentException("board size must be a natural square number");
 
-        this.BOARDSIZE = boardSize;
-        this.PIXELSIZE = pixelSize;
+        this.boardSize = boardSize;
+        this.pixelSize = pixelSize;
         calcGrid(calcSquare());
     }
 
@@ -37,10 +38,10 @@ public class Grid {
      */
     private void calcGrid(int squSize) {
         int boardEdge = calcEdge();
-        Point[] grid = new Point[BOARDSIZE];
+        Point[] grid = new Point[boardSize];
         int j = 0;
 
-        for (int i = 0; i < BOARDSIZE; i++) {
+        for (int i = 0; i < boardSize; i++) {
             grid[i] = new Point((i % boardEdge) * squSize, (j * squSize));
             if (i % boardEdge == boardEdge - 1) j++;
         }
@@ -52,14 +53,14 @@ public class Grid {
      * calc the size of single Fields in a boardgame
      */
     public int calcSquare() {
-        return (PIXELSIZE / calcEdge());
+        return (pixelSize / calcEdge());
     }
 
     /**
      * calc the edge length of a square
      */
     public int calcEdge() {
-        return (int) Math.sqrt(BOARDSIZE);
+        return (int) Math.sqrt(boardSize);
     }
 
 }
