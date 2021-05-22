@@ -1,26 +1,20 @@
+engine/Direction.java
+ engine.Direction
 Main.java
  Main
-CellStatus.java
- CellStatus
-Direction.java
- Direction
-Grid.java
- Grid
-DI.java
- DI
- DI$1
-Cell.java
- Cell
-Button.java
- Button
-GameOfCorona.java
- GameOfCorona
-HorizontalSlider.java
- HorizontalSlider
-AK.java
- AK
- AK$1
-MouseMode.java
- MouseMode
-InteractionComponent.java
- InteractionComponent
+engine/CellStatus.java
+ engine.CellStatus
+engine/Cell.java
+ engine.Cell
+presentation/MouseMode.java
+ presentation.MouseMode
+presentation/Grid.java
+ presentation.Grid
+presentation/PI.java
+ presentation.PI
+ presentation.PI$1
+engine/GameOfCorona.java
+ engine.GameOfCorona
+engine/Engine.java
+ engine.Engine
+ engine.Engine$1
