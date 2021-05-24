@@ -28,6 +28,7 @@ public class PI extends PApplet {
     //current state of the mouse
     private MouseMode mouseStatus = MouseMode.DEFAULT_MODE;
 
+    //the class for the control components like sliders and button
     private ControlP5 control;
 
 
@@ -37,14 +38,14 @@ public class PI extends PApplet {
     //assigns an image to a mouse state
     private Map<MouseMode, PImage> mouseImageMap = new HashMap<>();
 
-    //the value of this sliders will be linked to this variables by the control lib (big hocus-pocus)
-    private int delaySlider;
-    private int infectionSlider;
-    private int maskModSlider;
-    private int deathSlider;
+    /*
+    the value of this sliders will be linked to this variables by the control lib (big hocus-pocus)
+    intellij does not recognize this, so they are shown as unused
+    */
+    private int delaySlider, infectionSlider, maskModSlider, deathSlider, tickRangeSlider, infectAgainSlider;
 
     //number of cells per row, this number squared is the total number of cells
-    private static final int CELLS_PER_ROW = 20;
+    private static final int CELLS_PER_ROW = 10;
 
     /**
      * setting the window size
@@ -102,39 +103,57 @@ public class PI extends PApplet {
     }
 
     /**
-     * @param xOrigin a new 0 point on the x axis to align the items with it
-     * @param yOrigin a new 0 point on the y axis to align the items with it
-     * @param itemWidth   the width of a default control item
-     * @param itemHeight  the height of a default control item
+     * @param xOrigin    a new 0 point on the x axis to align the items with it
+     * @param yOrigin    a new 0 point on the y axis to align the items with it
+     * @param itemWidth  the width of a default control item
+     * @param itemHeight the height of a default control item
      */
     private void initializeSliders(int distance, int xOrigin, int yOrigin, int itemWidth, int itemHeight) {
-        int width = itemWidth/2;
-        int height = itemHeight/2;
+        int width = itemWidth / 2;
+        int height = itemHeight / 3;
 
+        //will be liked with object variable delaySlider
         control.addSlider("delaySlider")
-                .setPosition(xOrigin, yOrigin + 2 * (height + distance))
-                .setSize(width , height).setRange(100, 2500)
+                .setPosition(xOrigin, yOrigin + 2f * (height + distance))
+                .setSize(width, height).setRange(100, 2500)
                 .setValue(ak.getDelay())
                 .setNumberOfTickMarks(25)
                 .setLabel("ms delay between updates");
 
+        //will be liked with object variable inefctionSlider
         control.addSlider("infectionSlider")
                 .setPosition(xOrigin, yOrigin + 3 * (height + distance))
                 .setSize(width, height).setRange(0, 100)
                 .setValue(ak.getProbaOfInfection())
                 .setLabel("Infection Probability");
 
+        //will be liked with object variable maskModSlider
         control.addSlider("maskModSlider")
                 .setPosition(xOrigin, yOrigin + 4 * (height + distance))
                 .setSize(width, height).setRange(0, 100)
                 .setValue(ak.getMaskModifier())
                 .setLabel("Infection reduction by mask");
 
+        //will be liked with object variable deathSlider
         control.addSlider("deathSlider")
                 .setPosition(xOrigin, yOrigin + 5 * (height + distance))
                 .setSize(width, height).setRange(0, 100)
                 .setValue(ak.getProbaOfDeath())
                 .setLabel("Death probability");
+
+        //will be liked with object variable infectAgainSlider
+        control.addSlider("infectAgainSlider")
+                .setPosition(xOrigin, yOrigin + 6 * (height + distance))
+                .setSize(width, height).setRange(0, 100)
+                .setValue(ak.getReinfectionProbability())
+                .setLabel("chance of becoming infectabel ");
+
+        //will be liked with object variable tickRangeSlider
+        control.addSlider("tickRangeSlider")
+                .setPosition(xOrigin, yOrigin + 7 * (height + distance))
+                .setSize(width, height).setRange(1, 100)
+                .setValue(ak.getEventTickRange())
+                .setLabel("Random TickEventRange");
     }
 
     /**
@@ -215,9 +234,9 @@ public class PI extends PApplet {
         if (mousePressed && (mouseButton == LEFT) && mouseX < WIDTH && mouseY < WIDTH) {
             int cell = getCell();
             switch (mouseStatus) {
-                case INFECTION_MODE -> ak.infect(cell);
-                case MASK_MODE -> ak.giveMask(cell);
-                case VACCINE_MODE -> ak.giveImmunity(cell);
+                case INFECTION_MODE -> ak.infectCell(cell);
+                case MASK_MODE -> ak.maskCell(cell);
+                case VACCINE_MODE -> ak.immunizeCell(cell);
                 case KILL_MODE -> ak.killCell(cell);
             }
         }
@@ -227,10 +246,13 @@ public class PI extends PApplet {
      * adapts the values of the simulation to the current values of the slider
      */
     private void updateSliders() {
+        /*ak.getControl().setValue(Control.MASK_MODIFIER)*/
         ak.setDelay(delaySlider);
         ak.setProbaOfInfection(infectionSlider);
         ak.setMaskModifier(maskModSlider);
         ak.setProbaOfDeath(deathSlider);
+        ak.setProbaOfInfectAgain(infectAgainSlider);
+        ak.setEventTickRange(tickRangeSlider);
     }
 
     /**
@@ -242,22 +264,32 @@ public class PI extends PApplet {
         return x + y * CELLS_PER_ROW;
     }
 
+    private void drawStats() {
+        fill(255, 255, 255);
+        text("Infeced:" + ak.countInfected() + "\nKilled:" + ak.countKills(), 20, HEIGHT - 20);
+
+    }
+
     /**
      * "Gameloop" of the simulation
      */
     @Override
     public void draw() {
         drawBack();
+        drawStats();
         drawCells();
+
 
         updateMouseMode();
         updateSliders();
         clickedCell();
-
         ak.updateSimulation();
         //System.out.println(ak.toString());
 
     }
 
+    private enum MouseMode {
+        DEFAULT_MODE, INFECTION_MODE, MASK_MODE, VACCINE_MODE, KILL_MODE
+    }
 }
 

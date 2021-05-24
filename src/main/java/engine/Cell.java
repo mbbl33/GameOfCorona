@@ -35,10 +35,18 @@ public class Cell {
      * @param ticksTillEvent set the  game ticks until an infect Cell chang is Status to immun or dead
      */
     public Cell setTicksTillEvent(int ticksTillEvent) {
+        if (ticksTillEvent < 0) throw new IllegalArgumentException("ticksTillEvent have to be 0<=");
         this.ticksTillEvent = ticksTillEvent;
         return this;
     }
 
+    public void reduceCellTicks(int amount) {
+        ticksTillEvent -= amount;
+    }
+
+    public boolean eventCountdownDone() {
+        return ticksTillEvent <= 0;
+    }
 
     /**
      * return the cell as a string dependent on its current status

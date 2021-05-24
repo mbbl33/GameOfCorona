@@ -25,6 +25,9 @@ public class Engine implements GameOfCorona {
     // Default probability that an infection is deadly
     private int probaOfDeath = 40;
 
+    // Default probability of getting infetable again
+    private int probaOfInfectAgain = 1;
+
     // Number of cells per row and col
     private final int edgeLength;
 
@@ -32,6 +35,8 @@ public class Engine implements GameOfCorona {
     private int delay = 1000;
     private long time;
 
+    // highest tick number before a infected Cell change random to DEAD or IMMUNE and a immune cell gets infectable again
+    private int eventTickRange = 10;
     /**
      * prove if an cell is infectable
      */
@@ -43,6 +48,11 @@ public class Engine implements GameOfCorona {
     private final Predicate<Cell> isSick = cell -> cell.getStatus() == CellStatus.SICK;
 
     /**
+     * prove if an cell is immune
+     */
+    private final Predicate<Cell> isImmune = cell -> cell.getStatus() == CellStatus.IMMUNE;
+
+    /**
      * application core for "Game of Corona"
      *
      * @param edgeLength number of cells per row and col
@@ -51,7 +61,6 @@ public class Engine implements GameOfCorona {
         this.edgeLength = edgeLength;
         int fields = edgeLength * edgeLength;
         this.board = Stream.generate(Cell::new).limit(fields).collect(Collectors.toList());
-
     }
 
     /**
@@ -63,6 +72,7 @@ public class Engine implements GameOfCorona {
         return out;
     }
 
+
     /**
      * @return the time between updates
      */
@@ -73,9 +83,28 @@ public class Engine implements GameOfCorona {
     /**
      * @param delay the interval in which update can be called
      */
-    public void setDelay(int delay) {
+    public Engine setDelay(int delay) {
         if (delay < 0) throw new IllegalArgumentException("delay cant' be a negative number");
         this.delay = delay;
+        return this;
+    }
+
+    /**
+     * @return highest tick number before a infected Cell change random to DEAD or IMMUNE
+     * and a immune cell gets infectable again
+     */
+    public int getEventTickRange() {
+        return eventTickRange;
+    }
+
+    /**
+     * @param eventTickRange highest tick number before a infected Cell change random to DEAD or IMMUNE
+     *                       and a immune cell gets infectable again
+     */
+    public GameOfCorona setEventTickRange(int eventTickRange) {
+        if(eventTickRange < 1) throw new IllegalArgumentException("evenTickRang have to be 1<=");
+        this.eventTickRange = eventTickRange;
+        return this;
     }
 
     /**
@@ -84,7 +113,14 @@ public class Engine implements GameOfCorona {
      */
 
     private boolean isNOTInBoard(int pos) {
-        return pos < 0 || board.size() < pos;
+        return pos < 0 || board.size() - 1 < pos;
+    }
+
+    /**
+     * @return random number between 1 and eventTickRange
+     */
+    private int genRandomTicksTillEvent(double modifier) {
+        return (int) ((Math.random() * (eventTickRange * modifier)) + 1);
     }
 
     /**
@@ -92,13 +128,11 @@ public class Engine implements GameOfCorona {
      *
      * @param pos is the position the cell that is infected
      */
-    public Engine infect(int pos) {
+    public Engine infectCell(int pos) {
         if (isNOTInBoard(pos))
             throw new IllegalArgumentException("Position is not inside the Board");
         if (board.get(pos).getStatus() == CellStatus.HEALTHY || board.get(pos).getStatus() == CellStatus.MASKED) {
-            // Highest tick number before Cell change random to DEAD or IMMUNE
-            int eventTickRange = 10;
-            board.get(pos).setStatus(CellStatus.SICK).setTicksTillEvent((int) (Math.random() * eventTickRange));
+            board.get(pos).setStatus(CellStatus.SICK).setTicksTillEvent(genRandomTicksTillEvent(1));
         }
         return this;
     }
@@ -108,11 +142,11 @@ public class Engine implements GameOfCorona {
      *
      * @param pos is the position of the cell that is immunized
      */
-    public Engine giveImmunity(int pos) {
+    public Engine immunizeCell(int pos) {
         if (isNOTInBoard(pos))
             throw new IllegalArgumentException("Position is not inside the Board");
-        if (board.get(pos).getStatus() != CellStatus.DEAD)
-            board.get(pos).setStatus(CellStatus.IMMUNE);
+        if (board.get(pos).getStatus() != CellStatus.DEAD && board.get(pos).getStatus() != CellStatus.IMMUNE)
+            board.get(pos).setStatus(CellStatus.IMMUNE).setTicksTillEvent(genRandomTicksTillEvent(3));
         return this;
     }
 
@@ -121,7 +155,7 @@ public class Engine implements GameOfCorona {
      *
      * @param pos is the position of the cell that is masked
      */
-    public Engine giveMask(int pos) {
+    public Engine maskCell(int pos) {
         if (isNOTInBoard(pos))
             throw new IllegalArgumentException("Position is not inside the Board");
         if (board.get(pos).getStatus() == CellStatus.HEALTHY)
@@ -181,6 +215,8 @@ public class Engine implements GameOfCorona {
     /**
      * @return probability of infection in percent
      */
+
+    // getInfectionProbability
     public int getProbaOfInfection() {
         return probaOfInfection;
     }
@@ -206,11 +242,12 @@ public class Engine implements GameOfCorona {
     /**
      * @param maskModifier probability-of-infection-modifier when wearing a mask in percent
      */
-    public void setMaskModifier(int maskModifier) {
+    public Engine setMaskModifier(int maskModifier) {
         if (isNOTPercentage(maskModifier))
             throw new IllegalArgumentException("Mask-modifier must be a percentage value between 0 and 100 (inclusive)");
 
         this.maskModifier = maskModifier;
+        return this;
     }
 
     /**
@@ -227,6 +264,23 @@ public class Engine implements GameOfCorona {
         if (isNOTPercentage(probaOfDeath))
             throw new IllegalArgumentException("probability of dead must be a percentage value  between 0 and 100 (inclusive)");
         this.probaOfDeath = probaOfDeath;
+        return this;
+    }
+
+    /**
+     * @return probability if a cell can be infactable
+     */
+    public int getReinfectionProbability() {
+        return probaOfInfectAgain;
+    }
+
+    /**
+     * @param probaOfInfectAgain is the probability if a cell can be infactable again in percent
+     */
+    public Engine setProbaOfInfectAgain(int probaOfInfectAgain) {
+        if (isNOTPercentage(probaOfInfectAgain))
+            throw new IllegalArgumentException("probability of a cell being infectable again must be a percentage value  between 0 and 100 (inclusive)");
+        this.probaOfInfectAgain = probaOfInfectAgain;
         return this;
     }
 
@@ -268,7 +322,7 @@ public class Engine implements GameOfCorona {
     /**
      * @return all cells that have the possibility of being infected during the next run
      */
-    private List<Integer> getPossibleInfections() {
+    private List<Integer> getPotentialInfections() {
         return board.stream()
                 .filter(isSick)
                 .map(this::getInfectableNeighbours)
@@ -292,16 +346,14 @@ public class Engine implements GameOfCorona {
      * @param infections all cells that will be infected
      */
     private void setNewInfections(List<Integer> infections) {
-        infections.forEach(this::infect);
+        infections.forEach(this::infectCell);
     }
 
     /**
-     * reduce the ticks till event of all sick cells by 1
+     * reduce the ticks till event of all sick and immune cells by 1
      */
     private void reduceCellTicks() {
-        board.stream()
-                .filter(isSick)
-                .forEach(cell -> cell.setTicksTillEvent(cell.getTicksTillEvent() - 1));
+        board.forEach(c -> c.reduceCellTicks(1));
     }
 
     /**
@@ -309,8 +361,20 @@ public class Engine implements GameOfCorona {
      */
     private void updatePostInfected() {
         board.stream()
-                .filter(isSick).filter(cell -> cell.getTicksTillEvent() <= 0)
-                .forEach(cell -> cell.setStatus(willEventHappen(probaOfDeath) ? CellStatus.DEAD : CellStatus.IMMUNE));
+                .filter(isSick)
+                .filter(Cell::eventCountdownDone)
+                .forEach(cell -> cell.setStatus(willEventHappen(probaOfDeath) ? CellStatus.DEAD : CellStatus.IMMUNE).setTicksTillEvent(genRandomTicksTillEvent(3)));
+    }
+
+    /**
+     * sets the status of the cells whose ticks till event counter has reached 0 to healthy again, depending on the probability
+     */
+    private void updatePostImmune() {
+        board.stream()
+                .filter(isImmune)
+                .filter(Cell::eventCountdownDone)
+                .filter(cell ->willEventHappen(probaOfInfectAgain))
+                .forEach(cell ->  cell.setStatus(CellStatus.HEALTHY));
     }
 
     /**
@@ -318,8 +382,9 @@ public class Engine implements GameOfCorona {
      */
     public Engine updateSimulation() {
         if (time + delay <= System.currentTimeMillis()) {
-            setNewInfections(getNewInfections(getPossibleInfections()));
+            setNewInfections(getNewInfections(getPotentialInfections()));
             updatePostInfected();
+            updatePostImmune();
             reduceCellTicks();
             time = System.currentTimeMillis();
         }
@@ -327,10 +392,25 @@ public class Engine implements GameOfCorona {
     }
 
     /**
+     * @return the number of dead cells on the board
+     */
+    public int countKills(){
+        return (int) board.stream().filter(cell -> cell.getStatus() == CellStatus.DEAD).count();
+    }
+
+    /**
+     * @return the number of infected cells on the board
+     */
+    public int countInfected(){
+        return (int) board.stream().filter(isSick).count();
+    }
+
+    /**
      * reset all cells to healthy
      */
-    public void reset() {
-        board.forEach(cell -> cell.setStatus(CellStatus.HEALTHY));
+    public Engine reset() {
+        board.forEach(cell -> cell.setStatus(CellStatus.HEALTHY).setTicksTillEvent(0));
+        return this;
     }
 
     /**
@@ -341,5 +421,44 @@ public class Engine implements GameOfCorona {
         return board.stream()
                 .map(cell -> board.indexOf(cell) % edgeLength == edgeLength - 1 ? cell.toString() + "\n" : cell.toString())
                 .collect(Collectors.joining());
+    }
+
+    private HashMap<Control, Integer> controlValues;
+
+    public void setControl(Control control, int value) {
+        if(value < control.start || value > control.stop)
+            throw new IllegalArgumentException("Expected value between " + control.start + " and " + control.stop +", received " + value + ".");
+        controlValues.put(control, value);
+    }
+
+    public int getControl(Control control) {
+        return controlValues.get(control);
+    }
+
+    // Control.MASK_MODIFIER.getStart()
+
+    public enum Control {
+        MASK_MODIFIER(50, 0, 100),
+        INFECTION_PROBABILITY(50, 0, 100),
+        DEATH_PROBABILITY(50, 0, 100),
+        REINFECTION_PROBABILITY(50, 0, 100),
+        EVENT_TICK_RANGE(50, 0, 100),
+        DELAY(400, 100, 2500);
+
+        protected final int initialValue, start, stop;
+
+        Control(int value, int start, int stop) {
+            this.initialValue = value;
+            this.start = start;
+            this.stop = stop;
+        }
+
+        public int getStart() {
+            return start;
+        }
+
+        public int getStop() {
+            return stop;
+        }
     }
 }

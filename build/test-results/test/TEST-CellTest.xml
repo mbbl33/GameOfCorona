@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CellTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-05-22T18:14:18" hostname="DESKTOP-VKM3MS6" time="0.033">
+<testsuite name="CellTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2021-05-23T14:40:59" hostname="DESKTOP-VKM3MS6" time="0.036">
   <properties/>
-  <testcase name="testSetTicksTillEvent()" classname="CellTest" time="0.022"/>
-  <testcase name="testToString()" classname="CellTest" time="0.001"/>
-  <testcase name="testGetTicksTillEvent()" classname="CellTest" time="0.001"/>
-  <testcase name="testGetterSetterStatus()" classname="CellTest" time="0.006"/>
-  <testcase name="testSetStatus()" classname="CellTest" time="0.0"/>
+  <testcase name="testToString()" classname="CellTest" time="0.03"/>
+  <testcase name="testGetterSetterTicksTillEvent()" classname="CellTest" time="0.001"/>
+  <testcase name="testGetterSetterStatus()" classname="CellTest" time="0.003"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

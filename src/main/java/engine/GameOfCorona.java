@@ -24,14 +24,26 @@ public interface GameOfCorona {
     /**
      *@param delay the interval in which update can be called
      */
-    void setDelay(int delay);
+    GameOfCorona setDelay(int delay);
+
+    /**
+     * @return highest tick number before a infected Cell change random to DEAD or IMMUNE
+     * and a immune cell gets infectable again
+     */
+    int getEventTickRange();
+
+    /**
+     * @param eventTickRange highest tick number before a infected Cell change random to DEAD or IMMUNE
+     *                       and a immune cell gets infectable again
+     */
+    GameOfCorona setEventTickRange(int eventTickRange);
 
     /**
      * infects a cell
      *
      * @param pos is the position the cell that is infected
      */
-    GameOfCorona infect(int pos);
+    GameOfCorona infectCell(int pos);
 
 
     /**
@@ -39,14 +51,14 @@ public interface GameOfCorona {
      *
      * @param pos is the position of the cell that is immunized
      */
-    GameOfCorona giveImmunity(int pos);
+    GameOfCorona immunizeCell(int pos);
 
     /**
      * mask a cell
      *
      * @param pos is the position of the cell that is masked
      */
-    GameOfCorona giveMask(int pos);
+    GameOfCorona maskCell(int pos);
 
     /**
      * kill a cell
@@ -77,7 +89,7 @@ public interface GameOfCorona {
     /**
      * @param maskModifier probability-of-infection-modifier when wearing a mask in percent
      */
-    void setMaskModifier(int maskModifier);
+    GameOfCorona setMaskModifier(int maskModifier);
 
 
     /**
@@ -91,16 +103,39 @@ public interface GameOfCorona {
      */
     GameOfCorona setProbaOfDeath(int probaOfDeath);
 
+    /**
+     * @return probability if a cell can be infactable
+     */
+    int getReinfectionProbability();
+
+
+    /**
+     * @param probaOfInfectAgain is the probability if a cell can be infactable again in percent
+     */
+    GameOfCorona setProbaOfInfectAgain(int probaOfInfectAgain);
+
 
     /**
      * one run of the simulation "Tick"
      */
     GameOfCorona updateSimulation();
 
+    /**
+     * @return the number of dead cells on the board
+     */
+    int countKills();
+
+    /**
+     * @return the number of infected cells on the board
+     */
+    int countInfected();
 
     /**
      * reset all cells to healthy
      */
-    void reset();
+    GameOfCorona reset();
+
+    /*Engine.Control getControl();*/
+
 
 }
