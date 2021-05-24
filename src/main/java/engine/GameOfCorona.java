@@ -17,28 +17,6 @@ public interface GameOfCorona {
     List<Cell> getBoard();
 
     /**
-     * @return the time between updates
-     */
-    int getDelay();
-
-    /**
-     *@param delay the interval in which update can be called
-     */
-    GameOfCorona setDelay(int delay);
-
-    /**
-     * @return highest tick number before a infected Cell change random to DEAD or IMMUNE
-     * and a immune cell gets infectable again
-     */
-    int getEventTickRange();
-
-    /**
-     * @param eventTickRange highest tick number before a infected Cell change random to DEAD or IMMUNE
-     *                       and a immune cell gets infectable again
-     */
-    GameOfCorona setEventTickRange(int eventTickRange);
-
-    /**
      * infects a cell
      *
      * @param pos is the position the cell that is infected
@@ -69,53 +47,6 @@ public interface GameOfCorona {
 
 
     /**
-     * @return probability of infection in percent
-     */
-    int getProbaOfInfection();
-
-
-    /**
-     * @param probaOfInfection probability of infection in percent
-     */
-    GameOfCorona setProbaOfInfection(int probaOfInfection);
-
-
-    /**
-     * @return probability-of-infection-modifier when wearing a mask in percent
-     */
-    int getMaskModifier();
-
-
-    /**
-     * @param maskModifier probability-of-infection-modifier when wearing a mask in percent
-     */
-    GameOfCorona setMaskModifier(int maskModifier);
-
-
-    /**
-     * @return probability if an infection is deadly
-     */
-    int getProbaOfDeath();
-
-
-    /**
-     * @param probaOfDeath is the probability if an infection is deadly in percent
-     */
-    GameOfCorona setProbaOfDeath(int probaOfDeath);
-
-    /**
-     * @return probability if a cell can be infactable
-     */
-    int getReinfectionProbability();
-
-
-    /**
-     * @param probaOfInfectAgain is the probability if a cell can be infactable again in percent
-     */
-    GameOfCorona setProbaOfInfectAgain(int probaOfInfectAgain);
-
-
-    /**
      * one run of the simulation "Tick"
      */
     GameOfCorona updateSimulation();
@@ -135,7 +66,17 @@ public interface GameOfCorona {
      */
     GameOfCorona reset();
 
-    /*Engine.Control getControl();*/
+    /**
+     * set a value of the simulation
+     *
+     * @param control the simulation parameter which is to be changed
+     * @param value   the value that it should assume
+     */
+    GameOfCorona setControl(Engine.Control control, int value);
 
-
+    /**
+     * A enumeration of the values that can be controlled in the simulation
+     * with their default values and their range
+     */
+    enum Control{};
 }

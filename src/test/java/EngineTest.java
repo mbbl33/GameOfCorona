@@ -13,6 +13,10 @@ class EngineTest {
                 .maskCell(15);    //"M"
     }
 
+    private static Engine genSmallTestEngine() {
+        return new Engine(3);
+    }
+
     //H -> Healthy, M -> Masked,  S -> "Sick" Infected, I -> Immune D -> Dead
     private static final String TEST_BOARD = "HHHH\nSDHH\nHHHH\nHHIM\n";
 
@@ -37,30 +41,16 @@ class EngineTest {
     }
 
     @Test
-    void testGetterSetterDelay() {
-        //man kann delay abfragen und veraendern
-        assertEquals(genTestEngine().getDelay(), 1000, "die default delay zeit stimmt nicht");
-        assertEquals(genTestEngine().setDelay(2000).getDelay(), 2000, "die delay zeit konnte nicht geaendert werden");
-
-    }
-
-    @Test()
-    void testSetterDelayToNegative() {
-        //delay muss positiv sein
-        Assertions.assertThrows(IllegalArgumentException.class, () -> genTestEngine().setDelay(-1), "die delay zeit darf nicht negativ sein");
-    }
-
-    @Test
     void testInfectCell() {
         //es koennen nur zellen im board infiziert werden
         Assertions.assertThrows(IllegalArgumentException.class, () -> genTestEngine().infectCell(-1), "zellen koennen keine negative position haben");
         Assertions.assertThrows(IllegalArgumentException.class, () -> genTestEngine().infectCell(16), "man kann nur zellen im board infizieren");
 
         //testen das nur gesunde und maskierte zellen infiziert werden
-        Engine test = genTestEngine().setMaskModifier(0).setProbaOfInfection(100);
+        Engine test = genTestEngine().setControl(Engine.Control.MASK_MODIFIER, 0);
         assertEquals(test.infectCell(2).infectCell(5).infectCell(14).infectCell(15).toString(), "HHSH\nSDHH\nHHHH\nHHIS\n", "es koennen nur gesunde und maskierte zellen infiziert werden");
 
-        //bei infizierten zellen wird der ticks till even >0 gesetzt
+        //bei infizierten zellen wird der ticks till even 0< gesetzt
         assertTrue(test.getBoard().get(0).getTicksTillEvent() != test.infectCell(0).getBoard().get(0).getTicksTillEvent(), "ticksTillEvent muessen bei einer infektion gesetzt werden");
     }
 
@@ -88,57 +78,73 @@ class EngineTest {
 
     @Test
     void testKillCell() {
-        //es koennen nur zellen im board toeten werden
+        //es koennen nur zellen im board getoeten werden
         Assertions.assertThrows(IllegalArgumentException.class, () -> genTestEngine().maskCell(-1), "zellen koennen keine negative position haben");
         Assertions.assertThrows(IllegalArgumentException.class, () -> genTestEngine().maskCell(16), "nur zellen im board koennen maskiert werden");
     }
 
     @Test
-    void getProbaOfInfection() {
+    void testSetControl() {
+        //sicherstellen das setControl fehlerhafte eingaben abfaengt
+        Assertions.assertThrows(IllegalArgumentException.class, () -> genTestEngine().setControl(Engine.Control.DELAY, -1), "Delay kann keinen negativen wert annehmen");
     }
 
     @Test
-    void setProbaOfInfection() {
+    void testControl() {
+        //testen der einzelnen methoden im control enum
+        assertEquals(Engine.Control.DELAY.getStart(), 0, "der kleinste wert den delay annehmen kann ist 0");
+        assertEquals(Engine.Control.DEATH_PROBABILITY.getStop(), 100, "der groesste wert den daeth_probability annehmen kann ist 100");
+        assertEquals(Engine.Control.MASK_MODIFIER.getInitialValue(), 90, "der intial wert von mask_modifier stimmt nicht oder wird fehlerhaft zurueck gegeben");
     }
 
     @Test
-    void getMaskModifier() {
-    }
+    void testUpdateSimulation() {
 
-    @Test
-    void setMaskModifier() {
-    }
+        //test das die zu infizierenden nachbarn korekt gefunden werden
+        assertEquals(genSmallTestEngine()
+                .setControl(Engine.Control.INFECTION_PROBABILITY, 100)
+                .setControl(Engine.Control.EVENT_TICK_RANGE, 0)
+                .infectCell(4)
+                .updateSimulation()
+                .toString(), "HSH\nSSS\nHSH\n", "die zu infizierenden nachbarn wurden nicht korrekt gefunden");
 
-    @Test
-    void getProbaOfDeath() {
-    }
+        //testen bei angepasster infektionswahrscheinlichlkeit
+        assertEquals(genSmallTestEngine()
+                .setControl(Engine.Control.INFECTION_PROBABILITY, 0)
+                .setControl(Engine.Control.EVENT_TICK_RANGE, 0)
+                .infectCell(4)
+                .updateSimulation()
+                .toString(), "HHH\nHSH\nHHH\n", "bei einer infektionswahrscheinlichlkeit von 0% koennen sich keine neuen zellen infizieren");
 
-    @Test
-    void setProbaOfDeath() {
-    }
+        //testen der masken wirksamkeit/infektionsreduktion durch masken
+        assertEquals(genSmallTestEngine()
+                .setControl(Engine.Control.INFECTION_PROBABILITY, 100)
+                .setControl(Engine.Control.EVENT_TICK_RANGE, 0)
+                .setControl(Engine.Control.MASK_MODIFIER,100)
+                .infectCell(4).maskCell(5)
+                .updateSimulation()
+                .toString(),"HSH\nSSM\nHSH\n","bei einem masken modifier von 100% darf kein maskierte zelle infiziert werden");
 
-    @Test
-    void updateSimulation() {
-    }
+        assertEquals(genSmallTestEngine()
+                .setControl(Engine.Control.INFECTION_PROBABILITY, 100)
+                .setControl(Engine.Control.EVENT_TICK_RANGE, 0)
+                .setControl(Engine.Control.MASK_MODIFIER,0)
+                .infectCell(4).maskCell(5)
+                .updateSimulation()
+                .toString(),"HSH\nSSS\nHSH\n","bei einem masken modifier von 0% muss eine infektion genau so wahrscheinlich sein wie bei einer normalen gesunden zelle");
 
-    @Test
-    void reset() {
-    }
+        //testen der todeswahrscheinlichkeit
+        assertEquals(genSmallTestEngine()
+                .setControl(Engine.Control.INFECTION_PROBABILITY, 0)
+                .setControl(Engine.Control.REINFECTION_PROBABILITY,0)
+                .setControl(Engine.Control.DEATH_PROBABILITY,100)
+                .setControl(Engine.Control.EVENT_TICK_RANGE, 0)
+                .setControl(Engine.Control.DELAY, 0)
+                .infectCell(4)
+                .updateSimulation().updateSimulation().updateSimulation().updateSimulation().updateSimulation()
+                .toString(), "HHH\nHDH\nHHH\n","bei einer todeswahrscheinlichkeit von 100% muss die zelle nach einer infektion sterben");
 
-    @Test
-    void getEventTickRange() {
-    }
-
-    @Test
-    void setEventTickRange() {
-    }
-
-    @Test
-    void getProbaOfInfectAgain() {
-    }
-
-    @Test
-    void setProbaOfInfectAgain() {
+        //TODO: deathProb 0%,reinfect 100% / 0%, tickRange, delay
     }
 
     @Test
@@ -147,5 +153,9 @@ class EngineTest {
 
     @Test
     void countInfected() {
+    }
+
+    @Test
+    void reset() {
     }
 }

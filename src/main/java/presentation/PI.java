@@ -115,44 +115,44 @@ public class PI extends PApplet {
         //will be liked with object variable delaySlider
         control.addSlider("delaySlider")
                 .setPosition(xOrigin, yOrigin + 2f * (height + distance))
-                .setSize(width, height).setRange(100, 2500)
-                .setValue(ak.getDelay())
+                .setSize(width, height).setRange(Engine.Control.DELAY.getStart(), Engine.Control.DELAY.getStop())
+                .setValue(Engine.Control.DELAY.getInitialValue())
                 .setNumberOfTickMarks(25)
                 .setLabel("ms delay between updates");
 
-        //will be liked with object variable inefctionSlider
+        //will be liked with object variable inefectionSlider
         control.addSlider("infectionSlider")
                 .setPosition(xOrigin, yOrigin + 3 * (height + distance))
-                .setSize(width, height).setRange(0, 100)
-                .setValue(ak.getProbaOfInfection())
+                .setSize(width, height).setRange(Engine.Control.INFECTION_PROBABILITY.getStart(), Engine.Control.INFECTION_PROBABILITY.getStop())
+                .setValue(Engine.Control.INFECTION_PROBABILITY.getInitialValue())
                 .setLabel("Infection Probability");
 
         //will be liked with object variable maskModSlider
         control.addSlider("maskModSlider")
                 .setPosition(xOrigin, yOrigin + 4 * (height + distance))
-                .setSize(width, height).setRange(0, 100)
-                .setValue(ak.getMaskModifier())
+                .setSize(width, height).setRange(Engine.Control.MASK_MODIFIER.getStart(), Engine.Control.MASK_MODIFIER.getStop())
+                .setValue(Engine.Control.MASK_MODIFIER.getInitialValue())
                 .setLabel("Infection reduction by mask");
 
         //will be liked with object variable deathSlider
         control.addSlider("deathSlider")
                 .setPosition(xOrigin, yOrigin + 5 * (height + distance))
-                .setSize(width, height).setRange(0, 100)
-                .setValue(ak.getProbaOfDeath())
+                .setSize(width, height).setRange(Engine.Control.DEATH_PROBABILITY.getStart(), Engine.Control.DEATH_PROBABILITY.getStop())
+                .setValue(Engine.Control.DEATH_PROBABILITY.getInitialValue())
                 .setLabel("Death probability");
 
         //will be liked with object variable infectAgainSlider
         control.addSlider("infectAgainSlider")
                 .setPosition(xOrigin, yOrigin + 6 * (height + distance))
-                .setSize(width, height).setRange(0, 100)
-                .setValue(ak.getReinfectionProbability())
+                .setSize(width, height).setRange(Engine.Control.REINFECTION_PROBABILITY.getStart(), Engine.Control.REINFECTION_PROBABILITY.getStop())
+                .setValue(Engine.Control.REINFECTION_PROBABILITY.getInitialValue())
                 .setLabel("chance of becoming infectabel ");
 
         //will be liked with object variable tickRangeSlider
         control.addSlider("tickRangeSlider")
                 .setPosition(xOrigin, yOrigin + 7 * (height + distance))
-                .setSize(width, height).setRange(1, 100)
-                .setValue(ak.getEventTickRange())
+                .setSize(width, height).setRange(Engine.Control.EVENT_TICK_RANGE.getStart(), Engine.Control.EVENT_TICK_RANGE.getStop())
+                .setValue(Engine.Control.EVENT_TICK_RANGE.getInitialValue())
                 .setLabel("Random TickEventRange");
     }
 
@@ -246,13 +246,12 @@ public class PI extends PApplet {
      * adapts the values of the simulation to the current values of the slider
      */
     private void updateSliders() {
-        /*ak.getControl().setValue(Control.MASK_MODIFIER)*/
-        ak.setDelay(delaySlider);
-        ak.setProbaOfInfection(infectionSlider);
-        ak.setMaskModifier(maskModSlider);
-        ak.setProbaOfDeath(deathSlider);
-        ak.setProbaOfInfectAgain(infectAgainSlider);
-        ak.setEventTickRange(tickRangeSlider);
+        ak.setControl(Engine.Control.MASK_MODIFIER, maskModSlider);
+        ak.setControl(Engine.Control.DELAY, delaySlider);
+        ak.setControl(Engine.Control.INFECTION_PROBABILITY, infectionSlider);
+        ak.setControl(Engine.Control.DEATH_PROBABILITY,deathSlider);
+        ak.setControl(Engine.Control.REINFECTION_PROBABILITY,infectAgainSlider);
+        ak.setControl(Engine.Control.EVENT_TICK_RANGE, tickRangeSlider);
     }
 
     /**

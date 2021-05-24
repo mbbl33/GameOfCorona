@@ -8,20 +8,36 @@ class CellTest {
     @Test
     void testGetterSetterStatus() {
         //die Zelle ist default HEALTHY
-        assertSame(new Cell().getStatus(), CellStatus.HEALTHY, "Die Zell muss Standardmässig gesund sein");
+        assertSame(new Cell().getStatus(), CellStatus.HEALTHY, "die zell muss standardmässig gesund sein");
 
         //der Status der Celle ist aenderbar
-        assertNotSame(new Cell().setStatus(CellStatus.SICK).getStatus(), CellStatus.HEALTHY, "Der Status der Zell hat sich nicht geaendert");
-        assertSame(new Cell().setStatus(CellStatus.DEAD).getStatus(), CellStatus.DEAD, "Der Status der Zell hat sich nicht geändert");
+        assertNotSame(new Cell().setStatus(CellStatus.SICK).getStatus(), CellStatus.HEALTHY, "status der zell hat sich nicht geaendert");
+        assertSame(new Cell().setStatus(CellStatus.DEAD).getStatus(), CellStatus.DEAD, "status der zell hat sich nicht geändert");
     }
 
     @Test
     void testGetterSetterTicksTillEvent() {
+
+        //absichern das ticksTillEvent nicht kleiner als 0 werden darf
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new Cell().setTicksTillEvent(-1), "ticksTillEven darf keine negativen werte annehmen");
+
         //die ticksTillEvent sind default 0
-        assertEquals(new Cell().getTicksTillEvent(), 0, "Die ticksTillEvent muessen Standardmässig 0 sein");
+        assertEquals(new Cell().getTicksTillEvent(), 0, "ticksTillEvent muessen Standardmässig 0 sein");
 
         //die ticksTillEvent sind aenderbar
-        assertEquals(new Cell().setTicksTillEvent(20).getTicksTillEvent(), 20, "Die ticksTillEvent haben sich nicht geaendert");
+        assertEquals(new Cell().setTicksTillEvent(20).getTicksTillEvent(), 20, "ticksTillEvent haben sich nicht geaendert");
+    }
+
+    @Test
+    void reduceCellTicks() {
+        //reduzieren der ticks
+        assertEquals(new Cell().setTicksTillEvent(10).reduceCellTicks(1).getTicksTillEvent(), 9, "die tickTillEvent haben sich nicht reduziert");
+    }
+
+    @Test
+        void eventCountdownDone() {
+        assertTrue(new Cell().eventCountdownDone(), "eventCountDown gibt nicht true zurueck ob wohl er auf 0 steht");
+        assertTrue(new Cell().setTicksTillEvent(1).reduceCellTicks(1).eventCountdownDone(), "eventCountDown gibt nicht true zurueck ob wohl er auf 0 steht");
     }
 
     @Test
@@ -33,4 +49,6 @@ class CellTest {
         assertEquals(new Cell().setStatus(CellStatus.IMMUNE).toString(), "I", "immune Zelle wird nicht als I dagestellt");
         assertEquals(new Cell().setStatus(CellStatus.SICK).setStatus(CellStatus.DEAD).toString(), "D","tote Zelle wird nicht als D dargestellt");
     }
+
+
 }

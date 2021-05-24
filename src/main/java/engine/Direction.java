@@ -1,5 +1,5 @@
 package engine;
 
-public enum Direction {
+enum Direction {
     ABOVE, BELOW, RIGHT, LEFT
 }

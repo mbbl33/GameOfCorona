@@ -40,10 +40,17 @@ public class Cell {
         return this;
     }
 
-    public void reduceCellTicks(int amount) {
+    /**
+     * @param amount number of ticks around the cell is reduced
+     */
+    public Cell reduceCellTicks(int amount) {
         ticksTillEvent -= amount;
+        return this;
     }
 
+    /**
+     * @return true when the event will happen
+     */
     public boolean eventCountdownDone() {
         return ticksTillEvent <= 0;
     }

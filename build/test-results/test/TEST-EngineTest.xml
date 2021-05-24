@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="EngineTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2021-05-23T14:40:59" hostname="DESKTOP-VKM3MS6" time="0.063">
+<testsuite name="EngineTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2021-05-24T19:49:09" hostname="DESKTOP-VKM3MS6" time="0.045">
   <properties/>
-  <testcase name="getMaskModifier()" classname="EngineTest" time="0.001"/>
-  <testcase name="TestGetBoard()" classname="EngineTest" time="0.005"/>
-  <testcase name="testInfectCell()" classname="EngineTest" time="0.006"/>
-  <testcase name="testImmunizeCell()" classname="EngineTest" time="0.003"/>
+  <testcase name="TestGetBoard()" classname="EngineTest" time="0.004"/>
+  <testcase name="testInfectCell()" classname="EngineTest" time="0.003"/>
+  <testcase name="testImmunizeCell()" classname="EngineTest" time="0.002"/>
+  <testcase name="testSetControl()" classname="EngineTest" time="0.01"/>
   <testcase name="testToString()" classname="EngineTest" time="0.001"/>
-  <testcase name="killCell()" classname="EngineTest" time="0.001"/>
-  <testcase name="setMaskModifier()" classname="EngineTest" time="0.01"/>
-  <testcase name="reset()" classname="EngineTest" time="0.001"/>
-  <testcase name="testGetterSetterDelay()" classname="EngineTest" time="0.001"/>
-  <testcase name="getProbaOfDeath()" classname="EngineTest" time="0.002"/>
-  <testcase name="setProbaOfInfection()" classname="EngineTest" time="0.003"/>
-  <testcase name="testSetterDelayToNegative()" classname="EngineTest" time="0.002"/>
+  <testcase name="countKills()" classname="EngineTest" time="0.001"/>
+  <testcase name="countInfected()" classname="EngineTest" time="0.0"/>
+  <testcase name="reset()" classname="EngineTest" time="0.0"/>
+  <testcase name="testKillCell()" classname="EngineTest" time="0.003"/>
+  <testcase name="testControl()" classname="EngineTest" time="0.0"/>
+  <testcase name="testUpdateSimulation()" classname="EngineTest" time="0.009"/>
   <testcase name="testMaskCell()" classname="EngineTest" time="0.003"/>
-  <testcase name="setProbaOfDeath()" classname="EngineTest" time="0.001"/>
-  <testcase name="updateSimulation()" classname="EngineTest" time="0.001"/>
-  <testcase name="getProbaOfInfection()" classname="EngineTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
