@@ -31,3 +31,14 @@ Eine primtive Virussimulation.
 | mask | Die Maus wird in einen "Maskiermodus" versetzt, jetzt kann durch klicken auf eine Zelle diese maskiert werden. | ![](src/main/resources/maskMouse.png) |
 | vaccinate | Die Maus wird in einen "Impfmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese geimpft werden. | ![](src/main/resources/vaccinationMouse.png) |
 | kill | Die Maus wird in einen "Tötungsmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese getötet werden. | ![](src/main/resources/killMouse.png) |
+
+## Beschreibung für die Slider
+
+| Titel | Beschreibung | Range |
+| ------ | ------ | ------ |
+| ms delay between updates | cell | cell |
+| infection probability | cell | cell |
+| infection reduction by mask | cell | cell |
+| death probability | cell | cell |
+| chance of becoming infectabel| cell | cell |
+| random tickeventrange | cell | cell |
