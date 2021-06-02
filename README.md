@@ -42,4 +42,4 @@ Die werte der Slider können wahlweise über klick auf eine Position im Slider o
 | infection reduction by mask | Wie stark eine Maske die Infektionswahrscheinlichkeit verringert. | 0 | 100 | % |
 | death probability | Die Wahrscheinlichkeiten das eine Zelle nach ein Infektion stirbt. | 0 | 100 | % |
 | chance of becoming infectabel| Die Wahrscheinlichkeiten das eine Zell nach einer Immunisierung erneut angesteckt werden kann. Nach ablauf der mindest Immunzeit wird jede runde erneut gewürfelt. | 0 | 100 | % |
-| random tickeventrange | Die Tickrange bestimmt wie lange eine Zelle maximal Krank sein kann, der wert x5 bestimmt die maximale mindest Immunzeit der Zelle. | 0 | 100 | game ticks |
+| random tickeventrange | Die Tickrange bestimmt wie lange eine Zelle maximal Krank sein kann, der wert x5 bestimmt die maximale mindest Immunzeit der Zelle. | 0 | 100 | "game ticks" |
