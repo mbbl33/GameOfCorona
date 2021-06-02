@@ -20,4 +20,7 @@
 | Button | Beschreibung | Mouseicon |
 | ------ | ------ | ------ |
 | reset | Reset setzt alle Zellen gesund, ihre ticksTillEvent auf 0 und den Mausmodus auf default. |
-| infect | Die Maus wird in einen "infectmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese infiziert werden. |
+| infect | Die Maus wird in einen "Infectmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese infiziert werden. |
+| mask | Die Maus wird in einen "Maskiermodus" versetzt, jetzt kann durch klicken auf eine Zelle diese maskiert werden. |
+| vaccinate | Die Maus wird in einen "Impfmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese geimpft werden. |
+| kill | Die Maus wird in einen "Tötungsmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese getötet werden. |
