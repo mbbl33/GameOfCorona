@@ -43,3 +43,17 @@ Die werte der Slider können wahlweise über klick auf eine Position im Slider o
 | death probability | Die Wahrscheinlichkeiten das eine Zelle nach ein Infektion stirbt. | 0 | 100 | % |
 | chance of becoming infectabel| Die Wahrscheinlichkeiten das eine Zell nach einer Immunisierung erneut angesteckt werden kann. Nach ablauf der mindest Immunzeit wird jede runde erneut gewürfelt. | 0 | 100 | % |
 | random tickeventrange | Die Tickrange bestimmt wie lange eine Zelle maximal Krank sein kann, der wert x5 bestimmt die maximale mindest Immunzeit der Zelle. | 0 | 100 | "game ticks" |
+
+
+## Quellen
+Zusätzliches Bibliothek für Buttons und Slider: 
+- Website: http://www.sojamo.de/libraries/controlP5/ 
+- auf GitHub: https://github.com/sojamo/controlp5
+
+Aufgrund der teils sehr bescheidenen Dokumentation der controlP5 libarie hab ich mich an den Beispieldateien orientiert die im entsprechenden Projekt auf GitHub zur verfügung gestellt wurden:
+
+- für die Buttonbar: https://github.com/sojamo/controlp5/blob/master/examples/controllers/ControlP5ButtonBar/ControlP5ButtonBar.pde
+- für die Slider: https://github.com/sojamo/controlp5/blob/master/examples/controllers/ControlP5slider/ControlP5slider.pde
+
+
+
