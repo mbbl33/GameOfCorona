@@ -12,7 +12,7 @@ Eine primtive Virussimulation.
 
 
 ## Legende zu den Zellen Icons
---
+
 | Zellen Icon | Zustand | Kurzbeschreibung |
 | ------ | ------ | ------ |
 | ![](src/main/resources/healthy.png) | gesund | Eine gesunde Zelle, sie kann infiziert, maskiert, geimpft und getötet werden. |
@@ -23,7 +23,7 @@ Eine primtive Virussimulation.
 
 
 ## Legende zu den Buttons
---
+
 | Button | Beschreibung | Mouseicon |
 | ------ | ------ | ------ |
 | reset | Reset setzt alle Zellen gesund, ihre ticksTillEvent auf 0 und den Mausmodus auf default. | ![](src/main/resources/defaultMouse.png) |
