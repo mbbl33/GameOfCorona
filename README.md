@@ -46,7 +46,7 @@ Die werte der Slider können wahlweise über klick auf eine Position im Slider o
 
 
 ## Quellen
-Zusätzliches Bibliothek für Buttons und Slider "controlP5": 
+Zusätzliche Bibliothek für Buttons und Slider "controlP5": 
 - Website: http://www.sojamo.de/libraries/controlP5/ 
 - auf GitHub: https://github.com/sojamo/controlp5
 
