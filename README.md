@@ -1,6 +1,6 @@
 Game of Corona
 ---
-Eine primtive Virus Simulation.
+Eine primtive Virussimulation.
 
 
 ## Kurzbschreibung:
