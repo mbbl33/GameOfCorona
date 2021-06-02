@@ -5,6 +5,7 @@
 
 ![](readmeImgs/main.png)
 
+
 **Legende zu den Zellen Icons**
 | Zellen Icon | Zustand | Kurzbeschreibung |
 | ------ | ------ | ------ |
@@ -13,6 +14,7 @@
 | ![](src/main/resources/immune.png)  | immun | Eine immune Zelle, kann nicht Krank werden und auch keine Maske tragen, Spieler kann sie dennoch töten.|
 | ![](src/main/resources/sick.png) | krank | Eine kranke Zelle steckt ihre nachbarn an, hat die möglichkeit zu sterben oder immun zuwerden.|
 | ![](src/main/resources/dead.png) | tot | Eine tote Zelle kann nichts mehr machen und kann nur durch ein reset wiederbelebt werden.|
+
 
 **Legende zu den Buttons**
 | Button | Beschreibung | Mouseicon |
