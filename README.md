@@ -1,4 +1,4 @@
-** Kurzbschreibung:**
+**Kurzbschreibung:**
 
 Die Idee:
 
