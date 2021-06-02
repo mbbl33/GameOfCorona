@@ -7,9 +7,10 @@ Die Idee:
 ![](readmeImgs/main.png)
 
 
-| header | header |
+| Zellen Icon | Zustand |
 | ------ | ------ |
-| ![](src/main/resources/healthy.png) | cell |
-| ![](src/main/resources/masked.png) | cell |
-| ![](src/main/resources/immune.png)  | cell |
-| cell | cell |
+| ![](src/main/resources/healthy.png) | gesund |
+| ![](src/main/resources/masked.png) | maskiert |
+| ![](src/main/resources/immune.png)  | immun |
+| ![](src/main/resources/sick.png) | krank |
+| ![](src/main/resources/dead.png) | tot |
