@@ -22,7 +22,8 @@ Eine primtive Virussimulation.
 | ![](src/main/resources/dead.png) | tot | Eine tote Zelle kann nichts mehr machen und kann nur durch ein reset wiederbelebt werden.|
 
 
-## Legende zu den Buttons
+## Die Buttons
+Mit klicken auf die Buttons können die folgenden Aktionen durchgeführt werden:
 
 | Button | Beschreibung | Mouseicon |
 | ------ | ------ | ------ |
@@ -33,7 +34,7 @@ Eine primtive Virussimulation.
 | kill | Die Maus wird in einen "Tötungsmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese getötet werden. | ![](src/main/resources/killMouse.png) |
 
 ## Erklärung für die Slider
-
+Die werte der Slider können wahlweise über klick auf eine Position im Slider oder durch benutzen des Mausrades verändert werden.
 | Titel | Beschreibung | von | bis | in |
 | ------ | ------ | ------ | ------ | ------ |
 | ms delay between updates | Die Zeit zwischen den Updates des Boards. | 0 | 2500 | Millisekunden |
