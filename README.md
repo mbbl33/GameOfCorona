@@ -27,7 +27,7 @@ Mit klicken auf die Buttons können die folgenden Aktionen durchgeführt werden:
 
 | Button | Beschreibung | Mouseicon |
 | ------ | ------ | ------ |
-| reset | Reset setzt alle Zellen gesund, ihre ticksTillEvent auf 0 und den Mausmodus auf default. | ![](src/main/resources/defaultMouse.png) |
+| reset | Reset setzt alle Zellen gesund, ihre ticksTillEvent auf 0 und den Mausmodus auf default. Die Statistiken werden genullt.| ![](src/main/resources/defaultMouse.png) |
 | infect | Die Maus wird in einen "Infectmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese infiziert werden. | ![](src/main/resources/virusMouse.png) |
 | mask | Die Maus wird in einen "Maskiermodus" versetzt, jetzt kann durch klicken auf eine Zelle diese maskiert werden. | ![](src/main/resources/maskMouse.png) |
 | vaccinate | Die Maus wird in einen "Impfmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese geimpft werden. | ![](src/main/resources/vaccinationMouse.png) |
