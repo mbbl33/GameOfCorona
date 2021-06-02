@@ -31,13 +31,14 @@ class CellTest {
     @Test
     void reduceCellTicks() {
         //reduzieren der ticks
-        assertEquals(new Cell().setTicksTillEvent(10).reduceCellTicks(1).getTicksTillEvent(), 9, "die tickTillEvent haben sich nicht reduziert");
+        assertEquals(new Cell().setTicksTillEvent(10).reduceCellTicks().getTicksTillEvent(), 9, "die ticksTillEvent haben sich nicht reduziert");
+        assertEquals(new Cell().setTicksTillEvent(0).reduceCellTicks().getTicksTillEvent(), 0, "die ticksTillEvent dürfen nicht kleiner als 0 werden");
     }
 
     @Test
         void eventCountdownDone() {
         assertTrue(new Cell().eventCountdownDone(), "eventCountDown gibt nicht true zurueck ob wohl er auf 0 steht");
-        assertTrue(new Cell().setTicksTillEvent(1).reduceCellTicks(1).eventCountdownDone(), "eventCountDown gibt nicht true zurueck ob wohl er auf 0 steht");
+        assertTrue(new Cell().setTicksTillEvent(1).reduceCellTicks().eventCountdownDone(), "eventCountDown gibt nicht true zurueck ob wohl er auf 0 steht");
     }
 
     @Test

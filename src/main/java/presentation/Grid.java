@@ -2,6 +2,7 @@ package presentation;
 
 import java.util.Arrays;
 import java.awt.Point;
+import java.util.stream.*;
 
 /**
  * @author Maximilian Biebl

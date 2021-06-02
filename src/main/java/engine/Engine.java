@@ -22,7 +22,6 @@ public class Engine implements GameOfCorona {
     //ensures that the simulation is only updated in a certain interval
     private long time;
 
-    private static int IMMUNE_TICK_MODIFIER = 5;
     /**
      * A map of the values that can be controlled in the simulation
      */
@@ -107,14 +106,14 @@ public class Engine implements GameOfCorona {
         }
 
         /**
-         *@return the smallest value the variable can assume
+         * @return the smallest value the variable can assume
          */
         public int getStart() {
             return start;
         }
 
         /**
-         *@return the biggest value the variable can assume
+         * @return the biggest value the variable can assume
          */
         public int getStop() {
             return stop;
@@ -166,6 +165,7 @@ public class Engine implements GameOfCorona {
     public Engine immunizeCell(int pos) {
         if (isNOTInBoard(pos))
             throw new IllegalArgumentException("Position is not inside the Board");
+        int IMMUNE_TICK_MODIFIER = 5;
         if (board.get(pos).getStatus() != CellStatus.DEAD && board.get(pos).getStatus() != CellStatus.IMMUNE)
             board.get(pos).setStatus(CellStatus.IMMUNE).setTicksTillEvent(genRandomTicksTillEvent(IMMUNE_TICK_MODIFIER));
         return this;
@@ -198,7 +198,7 @@ public class Engine implements GameOfCorona {
 
 
     /**
-     * @param pos       is the position of is the position of the cell whose neighbor is to be checked
+     * @param pos      is the position of the cell whose neighbor is to be checked
      * @param direction is the indication of which neighbor should be checked
      * @return the corresponding neighbor, if it is outside the board, it returns a dead cell
      */
@@ -269,7 +269,7 @@ public class Engine implements GameOfCorona {
     }
 
     /**
-     * @return all cells that have the possibility of being infected during the next run
+     * @return all cells that have the possibility of being infected during the next run "tick"
      */
     private List<Integer> getPotentialInfections() {
         return board.stream()
@@ -285,8 +285,8 @@ public class Engine implements GameOfCorona {
      */
     private List<Integer> getNewInfections(List<Integer> infectable) {
         return infectable.stream()
-                .filter(cellPos -> board.get(cellPos).getStatus() == CellStatus.MASKED ?
-                        willEventHappen(controlValues.get(Control.INFECTION_PROBABILITY), controlValues.get(Control.MASK_MODIFIER))
+                .filter(cellPos -> board.get(cellPos).getStatus() == CellStatus.MASKED
+                        ? willEventHappen(controlValues.get(Control.INFECTION_PROBABILITY), controlValues.get(Control.MASK_MODIFIER))
                         : willEventHappen(controlValues.get(Control.INFECTION_PROBABILITY)))
                 .collect(Collectors.toList());
     }
@@ -306,7 +306,7 @@ public class Engine implements GameOfCorona {
     private void reduceCellTicks() {
         board.stream()
                 .filter(cell -> !cell.eventCountdownDone())
-                .forEach(c -> c.reduceCellTicks(1));
+                .forEach(Cell::reduceCellTicks);
     }
 
     /**
@@ -316,8 +316,13 @@ public class Engine implements GameOfCorona {
         board.stream()
                 .filter(isSick)
                 .filter(Cell::eventCountdownDone)
-                .forEach(cell -> cell.setStatus(willEventHappen(controlValues.get(Control.DEATH_PROBABILITY)) ?
-                        CellStatus.DEAD : CellStatus.IMMUNE).setTicksTillEvent(genRandomTicksTillEvent(IMMUNE_TICK_MODIFIER)));
+                .forEach(cell -> {
+                    if (willEventHappen(controlValues.get(Control.DEATH_PROBABILITY))) {
+                        killCell(board.indexOf(cell));
+                    } else {
+                        immunizeCell(board.indexOf(cell));
+                    }
+                });
     }
 
     /**

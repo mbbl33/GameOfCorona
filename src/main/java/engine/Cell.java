@@ -41,10 +41,10 @@ public class Cell {
     }
 
     /**
-     * @param amount number of ticks around the cell is reduced
+     * reduce cell ticksTillEvent by one
      */
-    public Cell reduceCellTicks(int amount) {
-        ticksTillEvent -= amount;
+    public Cell reduceCellTicks() {
+        if (0 < ticksTillEvent) ticksTillEvent--;
         return this;
     }
 
