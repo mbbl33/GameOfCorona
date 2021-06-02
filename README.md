@@ -8,8 +8,8 @@
 
 | Zellen Icon | Zustand | Kurzbeschreibung |
 | ------ | ------ | ------ |
-| ![](src/main/resources/healthy.png) | gesund | eine gesunde Zelle, sie kann infiziert, maskiert, geimpft und getötet werden. |
-| ![](src/main/resources/masked.png) | maskiert | eine maskierte Zelle, sie hat ein geringeres Infektionsrisko, verhält sich ansonsten wie eine gesunde Zelle.|
-| ![](src/main/resources/immune.png)  | immun | eine immune Zelle, kann nicht Krank werden und auch keine Maske tragen, Spieler kann sie dennoch töten.|
-| ![](src/main/resources/sick.png) | krank | eine kranke Zelle steckt ihre nachbarn an, hat die möglichkeit zu sterben oder immun zuwerden.|
-| ![](src/main/resources/dead.png) | tot | eine tote Zelle kann nichts mehr machen und kann nur durch ein reset wiederbelebt werden.|
+| ![](src/main/resources/healthy.png) | gesund | Eine gesunde Zelle, sie kann infiziert, maskiert, geimpft und getötet werden. |
+| ![](src/main/resources/masked.png) | maskiert | Eine maskierte Zelle, sie hat ein geringeres Infektionsrisko, verhält sich ansonsten wie eine gesunde Zelle.|
+| ![](src/main/resources/immune.png)  | immun | Eine immune Zelle, kann nicht Krank werden und auch keine Maske tragen, Spieler kann sie dennoch töten.|
+| ![](src/main/resources/sick.png) | krank | Eine kranke Zelle steckt ihre nachbarn an, hat die möglichkeit zu sterben oder immun zuwerden.|
+| ![](src/main/resources/dead.png) | tot | Eine tote Zelle kann nichts mehr machen und kann nur durch ein reset wiederbelebt werden.|
