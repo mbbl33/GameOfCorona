@@ -7,10 +7,10 @@ Die Idee:
 ![](readmeImgs/main.png)
 
 
-| Zellen Icon | Zustand |
-| ------ | ------ |
-| ![](src/main/resources/healthy.png) | gesund |
-| ![](src/main/resources/masked.png) | maskiert |
+| Zellen Icon | Zustand | Kurzbeschreibung |
+| ------ | ------ | ------ |
+| ![](src/main/resources/healthy.png) | gesund | eine gesunde Zelle, sie kann infiziert, maskiert, geimpft und getötet werden |
+| ![](src/main/resources/masked.png) | maskiert | eine maskierte Zelle, sie hat ein geringeres Infektionsrisko, verhält sich ansonsten wie gesunde zelle
 | ![](src/main/resources/immune.png)  | immun |
 | ![](src/main/resources/sick.png) | krank |
 | ![](src/main/resources/dead.png) | tot |
