@@ -36,9 +36,9 @@ Eine primtive Virussimulation.
 
 | Titel | Beschreibung | von | bis | in |
 | ------ | ------ | ------ | ------ | ------ |
-| ms delay between updates | Die Zeit zwischen den Updates des Boards | 0 | 2500 | Millisekunden |
-| infection probability | Die Wahrscheinlichkeiten für jede Nachbarzelle einer infizierten Zell beim nächsten Update infiziert zu werden | 0 | 100 | % |
-| infection reduction by mask | Wie stark eine Maske die Infektionswahrscheinlichkeit verringert | 0 | 100 | % |
-| death probability | Die Wahrscheinlichkeiten das eine Zelle nach ein Infektion stirbt | 0 | 100 | % |
+| ms delay between updates | Die Zeit zwischen den Updates des Boards. | 0 | 2500 | Millisekunden |
+| infection probability | Die Wahrscheinlichkeiten für jede Nachbarzelle einer infizierten Zell beim nächsten Update infiziert zu werden. | 0 | 100 | % |
+| infection reduction by mask | Wie stark eine Maske die Infektionswahrscheinlichkeit verringert. | 0 | 100 | % |
+| death probability | Die Wahrscheinlichkeiten das eine Zelle nach ein Infektion stirbt. | 0 | 100 | % |
 | chance of becoming infectabel| Die Wahrscheinlichkeiten das eine Zell nach einer Immunisierung erneut angesteckt werden kann. Nach ablauf der mindest Immunzeit wird jede runde erneut gewürfelt. | 0 | 100 | % |
-| random tickeventrange | Die Tickrange bestimmt wie lange eine Zelle maximal Krank sein kann, der wert x5 bestimmt die maximale mindest Immunzeit der Zelle | 0 | 100 | game ticks |
+| random tickeventrange | Die Tickrange bestimmt wie lange eine Zelle maximal Krank sein kann, der wert x5 bestimmt die maximale mindest Immunzeit der Zelle. | 0 | 100 | game ticks |
