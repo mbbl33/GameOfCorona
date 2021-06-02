@@ -7,6 +7,9 @@ Die Idee:
 ![](readmeImgs/main.png)
 
 
-| ![](src/main/resources/healthy.png) |  |
-|-![](src/main/resources/masked.png)-|--|
-| ![](src/main/resources/immune.png) |  |
+| header | header |
+| ------ | ------ |
+| ![](src/main/resources/healthy.png) | cell |
+| ![](src/main/resources/masked.png) | cell |
+| ![](src/main/resources/immune.png)  | cell |
+| cell | cell |
