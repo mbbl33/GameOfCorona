@@ -1,4 +1,4 @@
-##Kurzbschreibung:
+## Kurzbschreibung:
 --
 
 
@@ -7,7 +7,7 @@
 ![](readmeImgs/main.png)
 
 
-##Legende zu den Zellen Icons
+## Legende zu den Zellen Icons
 --
 | Zellen Icon | Zustand | Kurzbeschreibung |
 | ------ | ------ | ------ |
@@ -18,7 +18,7 @@
 | ![](src/main/resources/dead.png) | tot | Eine tote Zelle kann nichts mehr machen und kann nur durch ein reset wiederbelebt werden.|
 
 
-##Legende zu den Buttons
+## Legende zu den Buttons
 --
 | Button | Beschreibung | Mouseicon |
 | ------ | ------ | ------ |
