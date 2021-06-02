@@ -86,48 +86,6 @@ public class Engine implements GameOfCorona {
     }
 
     /**
-     * A enumeration of the values that can be controlled in the simulation
-     * with their default values and their range
-     */
-    public enum Control {
-        MASK_MODIFIER(90, 0, 100),
-        INFECTION_PROBABILITY(25, 0, 100),
-        DEATH_PROBABILITY(12, 0, 100),
-        REINFECTION_PROBABILITY(1, 0, 100),
-        EVENT_TICK_RANGE(10, 0, 100),
-        DELAY(400, 0, 2500);
-
-        protected final int initialValue, start, stop;
-
-        Control(int value, int start, int stop) {
-            this.initialValue = value;
-            this.start = start;
-            this.stop = stop;
-        }
-
-        /**
-         * @return the smallest value the variable can assume
-         */
-        public int getStart() {
-            return start;
-        }
-
-        /**
-         * @return the biggest value the variable can assume
-         */
-        public int getStop() {
-            return stop;
-        }
-
-        /**
-         * @return the value of the variable at the beginning
-         */
-        public int getInitialValue() {
-            return initialValue;
-        }
-    }
-
-    /**
      * @param pos the position that is being checked
      * @return true if the position is NOT in the board
      */
@@ -196,6 +154,12 @@ public class Engine implements GameOfCorona {
         return this;
     }
 
+    /**
+     * The four directions in which a cell can have a neighbor
+     */
+    private enum Direction {
+        ABOVE, BELOW, RIGHT, LEFT
+    }
 
     /**
      * @param pos      is the position of the cell whose neighbor is to be checked

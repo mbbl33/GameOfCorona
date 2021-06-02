@@ -1,9 +1,3 @@
-engine/Direction.java
- engine.Direction
-engine/CellStatus.java
- engine.CellStatus
-engine/Cell.java
- engine.Cell
 presentation/Grid.java
  presentation.Grid
 Main.java
@@ -18,4 +12,8 @@ engine/GameOfCorona.java
 engine/Engine.java
  engine.Engine
  engine.Engine$1
- engine.Engine$Control
+ engine.Engine$Direction
+engine/Cell.java
+ engine.Cell
+engine/CellStatus.java
+ engine.CellStatus

@@ -12,6 +12,56 @@ import java.util.*;
 public interface GameOfCorona {
 
     /**
+     * set a value of the simulation
+     *
+     * @param control the simulation parameter which is to be changed
+     * @param value   the value that it should assume
+     */
+    GameOfCorona setControl(Engine.Control control, int value);
+
+    /**
+     * A enumeration of the values that can be controlled in the simulation
+     * with their default values and their range
+     */
+    enum Control {
+        MASK_MODIFIER(90, 0, 100),
+        INFECTION_PROBABILITY(25, 0, 100),
+        DEATH_PROBABILITY(12, 0, 100),
+        REINFECTION_PROBABILITY(1, 0, 100),
+        EVENT_TICK_RANGE(10, 0, 100),
+        DELAY(400, 0, 2500);
+
+        protected final int initialValue, start, stop;
+
+        Control(int value, int start, int stop) {
+            this.initialValue = value;
+            this.start = start;
+            this.stop = stop;
+        }
+
+        /**
+         * @return the smallest value the variable can assume
+         */
+        public int getStart() {
+            return start;
+        }
+
+        /**
+         * @return the biggest value the variable can assume
+         */
+        public int getStop() {
+            return stop;
+        }
+
+        /**
+         * @return the value of the variable at the beginning
+         */
+        public int getInitialValue() {
+            return initialValue;
+        }
+    }
+
+    /**
      * @return a deep copy of the  board on which the simulation happens
      */
     List<Cell> getBoard();
@@ -66,17 +116,6 @@ public interface GameOfCorona {
      */
     GameOfCorona reset();
 
-    /**
-     * set a value of the simulation
-     *
-     * @param control the simulation parameter which is to be changed
-     * @param value   the value that it should assume
-     */
-    GameOfCorona setControl(Engine.Control control, int value);
 
-    /**
-     * A enumeration of the values that can be controlled in the simulation
-     * with their default values and their range
-     */
-    enum Control{};
+
 }

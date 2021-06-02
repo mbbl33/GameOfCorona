@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="EngineTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2021-06-02T11:47:35" hostname="DESKTOP-VKM3MS6" time="1.061">
+<testsuite name="EngineTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2021-06-02T12:05:17" hostname="DESKTOP-VKM3MS6" time="1.048">
   <properties/>
   <testcase name="TestGetBoard()" classname="EngineTest" time="0.004"/>
   <testcase name="testInfectCell()" classname="EngineTest" time="0.004"/>
-  <testcase name="testInfections()" classname="EngineTest" time="0.008"/>
+  <testcase name="testInfections()" classname="EngineTest" time="0.009"/>
   <testcase name="testDelay()" classname="EngineTest" time="1.001"/>
-  <testcase name="testImmunizeCell()" classname="EngineTest" time="0.002"/>
-  <testcase name="testSetControl()" classname="EngineTest" time="0.01"/>
+  <testcase name="testImmunizeCell()" classname="EngineTest" time="0.001"/>
+  <testcase name="testSetControl()" classname="EngineTest" time="0.009"/>
   <testcase name="testToString()" classname="EngineTest" time="0.0"/>
-  <testcase name="countKills()" classname="EngineTest" time="0.0"/>
+  <testcase name="countKills()" classname="EngineTest" time="0.001"/>
   <testcase name="countInfected()" classname="EngineTest" time="0.001"/>
-  <testcase name="reset()" classname="EngineTest" time="0.001"/>
-  <testcase name="testKillCell()" classname="EngineTest" time="0.004"/>
-  <testcase name="testPostinfected()" classname="EngineTest" time="0.002"/>
+  <testcase name="reset()" classname="EngineTest" time="0.0"/>
+  <testcase name="testKillCell()" classname="EngineTest" time="0.002"/>
+  <testcase name="testPostinfected()" classname="EngineTest" time="0.001"/>
   <testcase name="testControl()" classname="EngineTest" time="0.0"/>
-  <testcase name="testPostImmune()" classname="EngineTest" time="0.001"/>
-  <testcase name="testMaskCell()" classname="EngineTest" time="0.003"/>
-  <testcase name="testMaskmodifier()" classname="EngineTest" time="0.001"/>
+  <testcase name="testPostImmune()" classname="EngineTest" time="0.0"/>
+  <testcase name="testMaskCell()" classname="EngineTest" time="0.002"/>
+  <testcase name="testMaskmodifier()" classname="EngineTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
