@@ -1,4 +1,4 @@
-##Kurzbschreibung:**
+##Kurzbschreibung:
 --
 
 
@@ -7,7 +7,7 @@
 ![](readmeImgs/main.png)
 
 
-##Legende zu den Zellen Icons*
+##Legende zu den Zellen Icons
 --
 | Zellen Icon | Zustand | Kurzbeschreibung |
 | ------ | ------ | ------ |
