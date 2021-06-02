@@ -32,12 +32,12 @@ Eine primtive Virussimulation.
 | vaccinate | Die Maus wird in einen "Impfmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese geimpft werden. | ![](src/main/resources/vaccinationMouse.png) |
 | kill | Die Maus wird in einen "Tötungsmodus" versetzt, jetzt kann durch klicken auf eine Zelle diese getötet werden. | ![](src/main/resources/killMouse.png) |
 
-## Beschreibung für die Slider
+## Erklärung für die Slider
 
-| Titel | Beschreibung | Range |
-| ------ | ------ | ------ |
-| ms delay between updates | cell | cell |
-| infection probability | cell | cell |
+| Titel | Beschreibung | Von | Bis |
+| ------ | ------ | ------ | ------ |
+| ms delay between updates | Die Zeit zwischen den Updates des Boards | 0 | 2500 |
+| infection probability | Die Wahrscheinlichkeiten für jede Nachbarzelle einer infizierten Zell beim nächsten Update infiziert zu werden | 0 | 100 |
 | infection reduction by mask | cell | cell |
 | death probability | cell | cell |
 | chance of becoming infectabel| cell | cell |
