@@ -28,7 +28,7 @@ hiervon wird die Dauer einer Infektion und die Dauer der Immunität beeinflusst.
 | ------ | ------ | ------ |
 | ![](src/main/resources/healthy.png) | gesund | Eine gesunde Zelle, sie kann infiziert, maskiert, geimpft und getötet werden. |
 | ![](src/main/resources/masked.png) | maskiert | Eine maskierte Zelle, sie kann ein geringeres Infektionsrisiko haben, verhält sich ansonsten wie eine gesunde Zelle.|
-| ![](src/main/resources/immune.png)  | immun | Eine immune Zelle, kann nicht Krank werden und auch keine Maske tragen, der Spieler kann sie dennoch töten.|
+| ![](src/main/resources/immune.png)  | immun | Eine immune Zelle, kann nicht Krank werden und auch keine Maske tragen, der Spieler kann sie dennoch töten. Sie wird nach einer Zeit wieder Infizierbar.|
 | ![](src/main/resources/sick.png) | krank | Eine kranke Zelle steckt ihre nachbarn an und hat die möglichkeit zu sterben oder immun zu werden.|
 | ![](src/main/resources/dead.png) | tot | Eine tote Zelle kann nichts mehr machen und kann nur durch ein reset wiederbelebt werden.|
 
@@ -56,7 +56,7 @@ Benutzen des Mausrades verändert werden.
 | Titel | Beschreibung | von | bis | Einheit |
 | ------ | ------ | ------ | ------ | ------ |
 | ms delay between updates | Die Zeit zwischen den Updates "Ticks" des Boards. | 0 | 2500 | Millisekunden |
-| infection probability | Die Wahrscheinlichkeiten für jede Nachbarzelle einer infizierten Zell beim nächsten Update infiziert zu werden. | 0 | 100 | % |
+| infection probability | Die Wahrscheinlichkeiten für jede Nachbarzelle einer infizierten Zelle beim nächsten Update infiziert zu werden. | 0 | 100 | % |
 | infection reduction by mask | Wie stark eine Maske die Infektionswahrscheinlichkeit verringert. | 0 | 100 | % |
 | death probability | Die Wahrscheinlichkeiten das eine Zelle nach ein Infektion stirbt. | 0 | 100 | % |
 | chance of becoming infectabel| Die Wahrscheinlichkeiten das eine Zell nach einer Immunisierung erneut angesteckt werden kann. Nach ablauf der mindest Immunzeit wird jede runde erneut gewürfelt. | 0 | 100 | % |
