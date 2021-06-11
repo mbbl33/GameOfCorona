@@ -36,7 +36,7 @@ hiervon wird die Dauer einer Infektion und die Dauer der Immunität beeinflusst.
 
 ---
 
-### Die Buttons
+### Erklärung für die Buttons
 
 Mit klicken auf die Buttons können die folgenden Aktionen durchgeführt werden:
 
