@@ -1,11 +1,7 @@
-presentation/Grid.java
- presentation.Grid
-Main.java
- Main
-presentation/PI.java
- presentation.PI
- presentation.PI$1
- presentation.PI$MouseMode
+engine/CellStatus.java
+ engine.CellStatus
+engine/Cell.java
+ engine.Cell
 engine/GameOfCorona.java
  engine.GameOfCorona
  engine.GameOfCorona$Control
@@ -13,7 +9,11 @@ engine/Engine.java
  engine.Engine
  engine.Engine$1
  engine.Engine$Direction
-engine/Cell.java
- engine.Cell
-engine/CellStatus.java
- engine.CellStatus
+Main.java
+ Main
+presentation/PI.java
+ presentation.PI
+ presentation.PI$1
+ presentation.PI$MouseMode
+presentation/Grid.java
+ presentation.Grid

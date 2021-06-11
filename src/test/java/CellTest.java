@@ -30,25 +30,24 @@ class CellTest {
 
     @Test
     void reduceCellTicks() {
-        //reduzieren der ticks
         assertEquals(new Cell().setTicksTillEvent(10).reduceCellTicks().getTicksTillEvent(), 9, "die ticksTillEvent haben sich nicht reduziert");
         assertEquals(new Cell().setTicksTillEvent(0).reduceCellTicks().getTicksTillEvent(), 0, "die ticksTillEvent dürfen nicht kleiner als 0 werden");
     }
 
     @Test
-        void eventCountdownDone() {
+    void eventCountdownDone() {
         assertTrue(new Cell().eventCountdownDone(), "eventCountDown gibt nicht true zurueck ob wohl er auf 0 steht");
         assertTrue(new Cell().setTicksTillEvent(1).reduceCellTicks().eventCountdownDone(), "eventCountDown gibt nicht true zurueck ob wohl er auf 0 steht");
     }
 
     @Test
-    void testToString(){
+    void testToString() {
         //testet ob die string repraesentation richtig ist, wichtig fuer folgende tests, daher die ausfuehrliche pruefungen
         assertEquals(new Cell().toString(), "H", "gesunde Zelle wird nicht als H dargestellt");
-        assertEquals(new Cell().setStatus(CellStatus.MASKED).toString(), "M","maskierte Zelle wird nicht als M dargestellt");
+        assertEquals(new Cell().setStatus(CellStatus.MASKED).toString(), "M", "maskierte Zelle wird nicht als M dargestellt");
         assertEquals(new Cell().setStatus(CellStatus.SICK).toString(), "S", "kranke Zelle wird nicht als S dargestellt");
         assertEquals(new Cell().setStatus(CellStatus.IMMUNE).toString(), "I", "immune Zelle wird nicht als I dagestellt");
-        assertEquals(new Cell().setStatus(CellStatus.SICK).setStatus(CellStatus.DEAD).toString(), "D","tote Zelle wird nicht als D dargestellt");
+        assertEquals(new Cell().setStatus(CellStatus.SICK).setStatus(CellStatus.DEAD).toString(), "D", "tote Zelle wird nicht als D dargestellt");
     }
 
 

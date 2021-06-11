@@ -1,8 +1,7 @@
 package presentation;
 
-import java.util.Arrays;
-import java.awt.Point;
-import java.util.stream.*;
+import java.awt.*;
+import java.util.*;
 
 /**
  * @author Maximilian Biebl
@@ -54,7 +53,7 @@ public class Grid {
     }
 
     /**
-     * calc the size of single Fields in a boardgame
+     * calc the size of single fields in a boardgame
      */
     public int calcSquare() {
         return (pixelSize / calcEdge());

@@ -1,11 +1,10 @@
 package presentation;
 
+import controlP5.*;
 import engine.*;
 import processing.core.*;
 
 import java.util.*;
-
-import controlP5.*;
 
 
 /**
@@ -234,6 +233,18 @@ public class PI extends PApplet {
     }
 
     /**
+     * adapts the values of the simulation to the current values of the slider
+     */
+    private void updateSliders() {
+        ak.setControl(Engine.Control.MASK_MODIFIER, maskModSlider);
+        ak.setControl(Engine.Control.DELAY, delaySlider);
+        ak.setControl(Engine.Control.INFECTION_PROBABILITY, infectionSlider);
+        ak.setControl(Engine.Control.DEATH_PROBABILITY, deathSlider);
+        ak.setControl(Engine.Control.REINFECTION_PROBABILITY, infectAgainSlider);
+        ak.setControl(Engine.Control.EVENT_TICK_RANGE, tickRangeSlider);
+    }
+
+    /**
      * changes the status of a cell depending on the mouse mode
      */
     private void clickedCell() {
@@ -246,20 +257,9 @@ public class PI extends PApplet {
                     case VACCINE_MODE -> ak.immunizeCell(cell);
                     case KILL_MODE -> ak.killCell(cell);
                 }
-            } catch (IllegalArgumentException ignored) { }
+            } catch (IllegalArgumentException ignored) {
+            }
         }
-    }
-
-    /**
-     * adapts the values of the simulation to the current values of the slider
-     */
-    private void updateSliders() {
-        ak.setControl(Engine.Control.MASK_MODIFIER, maskModSlider);
-        ak.setControl(Engine.Control.DELAY, delaySlider);
-        ak.setControl(Engine.Control.INFECTION_PROBABILITY, infectionSlider);
-        ak.setControl(Engine.Control.DEATH_PROBABILITY, deathSlider);
-        ak.setControl(Engine.Control.REINFECTION_PROBABILITY, infectAgainSlider);
-        ak.setControl(Engine.Control.EVENT_TICK_RANGE, tickRangeSlider);
     }
 
     /**
@@ -297,7 +297,7 @@ public class PI extends PApplet {
     }
 
     /**
-     *enumeration the different mouse states
+     * enumeration the different mouse states
      */
     private enum MouseMode {
         DEFAULT_MODE, INFECTION_MODE, MASK_MODE, VACCINE_MODE, KILL_MODE

@@ -117,5 +117,4 @@ public interface GameOfCorona {
     GameOfCorona reset();
 
 
-
 }

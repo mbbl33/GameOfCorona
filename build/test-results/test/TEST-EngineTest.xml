@@ -1,22 +1,127 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="EngineTest" tests="16" skipped="0" failures="0" errors="0" timestamp="2021-06-02T12:05:17" hostname="DESKTOP-VKM3MS6" time="1.048">
+<testsuite name="EngineTest" tests="121" skipped="0" failures="0" errors="0" timestamp="2021-06-11T08:56:45" hostname="DESKTOP-VKM3MS6" time="0.854">
   <properties/>
-  <testcase name="TestGetBoard()" classname="EngineTest" time="0.004"/>
+  <testcase name="TestGetBoard()" classname="EngineTest" time="0.036"/>
   <testcase name="testInfectCell()" classname="EngineTest" time="0.004"/>
-  <testcase name="testInfections()" classname="EngineTest" time="0.009"/>
-  <testcase name="testDelay()" classname="EngineTest" time="1.001"/>
+  <testcase name="testReset()" classname="EngineTest" time="0.003"/>
   <testcase name="testImmunizeCell()" classname="EngineTest" time="0.001"/>
-  <testcase name="testSetControl()" classname="EngineTest" time="0.009"/>
-  <testcase name="testToString()" classname="EngineTest" time="0.0"/>
-  <testcase name="countKills()" classname="EngineTest" time="0.001"/>
+  <testcase name="testSetControl()" classname="EngineTest" time="0.01"/>
+  <testcase name="testToString()" classname="EngineTest" time="0.001"/>
+  <testcase name="countKills()" classname="EngineTest" time="0.002"/>
   <testcase name="countInfected()" classname="EngineTest" time="0.001"/>
-  <testcase name="reset()" classname="EngineTest" time="0.0"/>
+  <testcase name="testPostinfected1()" classname="EngineTest" time="0.007"/>
+  <testcase name="testPostinfected2()" classname="EngineTest" time="0.001"/>
   <testcase name="testKillCell()" classname="EngineTest" time="0.002"/>
-  <testcase name="testPostinfected()" classname="EngineTest" time="0.001"/>
   <testcase name="testControl()" classname="EngineTest" time="0.0"/>
   <testcase name="testPostImmune()" classname="EngineTest" time="0.0"/>
-  <testcase name="testMaskCell()" classname="EngineTest" time="0.002"/>
-  <testcase name="testMaskmodifier()" classname="EngineTest" time="0.0"/>
+  <testcase name="testInfections1()" classname="EngineTest" time="0.001"/>
+  <testcase name="testInfections2()" classname="EngineTest" time="0.001"/>
+  <testcase name="testMaskCell()" classname="EngineTest" time="0.001"/>
+  <testcase name="testDelay1()" classname="EngineTest" time="0.0"/>
+  <testcase name="testDelay2()" classname="EngineTest" time="0.513"/>
+  <testcase name="Wiederholungslauf 1 von 100" classname="EngineTest" time="0.002"/>
+  <testcase name="Wiederholungslauf 2 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 3 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 4 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 5 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 6 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 7 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 8 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 9 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 10 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 11 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 12 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 13 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 14 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 15 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 16 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 17 von 100" classname="EngineTest" time="0.005"/>
+  <testcase name="Wiederholungslauf 18 von 100" classname="EngineTest" time="0.002"/>
+  <testcase name="Wiederholungslauf 19 von 100" classname="EngineTest" time="0.002"/>
+  <testcase name="Wiederholungslauf 20 von 100" classname="EngineTest" time="0.003"/>
+  <testcase name="Wiederholungslauf 21 von 100" classname="EngineTest" time="0.002"/>
+  <testcase name="Wiederholungslauf 22 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 23 von 100" classname="EngineTest" time="0.003"/>
+  <testcase name="Wiederholungslauf 24 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 25 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 26 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 27 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 28 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 29 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 30 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 31 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 32 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 33 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 34 von 100" classname="EngineTest" time="0.002"/>
+  <testcase name="Wiederholungslauf 35 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 36 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 37 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 38 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 39 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 40 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 41 von 100" classname="EngineTest" time="0.003"/>
+  <testcase name="Wiederholungslauf 42 von 100" classname="EngineTest" time="0.002"/>
+  <testcase name="Wiederholungslauf 43 von 100" classname="EngineTest" time="0.004"/>
+  <testcase name="Wiederholungslauf 44 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 45 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 46 von 100" classname="EngineTest" time="0.002"/>
+  <testcase name="Wiederholungslauf 47 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 48 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 49 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 50 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 51 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 52 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 53 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 54 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 55 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 56 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 57 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 58 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 59 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 60 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 61 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 62 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 63 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 64 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 65 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 66 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 67 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 68 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 69 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 70 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 71 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 72 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 73 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 74 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 75 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 76 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 77 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 78 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 79 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 80 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 81 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 82 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 83 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 84 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 85 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 86 von 100" classname="EngineTest" time="0.002"/>
+  <testcase name="Wiederholungslauf 87 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 88 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 89 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 90 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 91 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 92 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 93 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 94 von 100" classname="EngineTest" time="0.0"/>
+  <testcase name="Wiederholungslauf 95 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 96 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 97 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 98 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 99 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="Wiederholungslauf 100 von 100" classname="EngineTest" time="0.001"/>
+  <testcase name="testTEgeNeighbors()" classname="EngineTest" time="0.001"/>
+  <testcase name="testMaskmodifier1()" classname="EngineTest" time="0.001"/>
+  <testcase name="testMaskmodifier2()" classname="EngineTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

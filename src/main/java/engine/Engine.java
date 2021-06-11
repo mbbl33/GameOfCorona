@@ -89,7 +89,6 @@ public class Engine implements GameOfCorona {
      * @param pos the position that is being checked
      * @return true if the position is NOT in the board
      */
-
     private boolean isNOTInBoard(int pos) {
         return pos < 0 || board.size() - 1 < pos;
     }
@@ -162,7 +161,7 @@ public class Engine implements GameOfCorona {
     }
 
     /**
-     * @param pos      is the position of the cell whose neighbor is to be checked
+     * @param pos       is the position of the cell whose neighbor is to be checked
      * @param direction is the indication of which neighbor should be checked
      * @return the corresponding neighbor, if it is outside the board, it returns a dead cell
      */
