@@ -65,35 +65,64 @@ Benutzen des Mausrades verändert werden.
 ## Übersicht über die Dateien und die Lines of Code:
 
 ---
+####Einzeldateien:
 
-| Paket | Teil von | Name | Type | LOC | Anteil in % | Kurzbeschreibung|
+| Name | Paket | Teil von | Type | LOC | Anteil in % | Kurzbeschreibung|
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
-| engine | AL | Cell | Klasse | 32 | ≈ 7% | Eine einzelne Zelle in der Simulation |
-| engine | AL | CellStatus | Enum | 4 | ≈ 1% | Die möglichen Zustände der Zellen |
-| engine | AL | Engine | Klasse| 172 | ≈ 38% | Der Kern der Anwendung |
-| engine | AL | GameOfCorona | Interface | 37 | ≈ 8% | Die Schnittstelle zwischen AL und PI |
-| presentation | PI | Grid | Klasse | 33 | ≈ 7% | Raster zum Ausrichten der Zellen |
-| presentation | PI | PI | Klasse | 172 | ≈ 38% | Die Präsentation und Interaktion der Simulation |
-| - | - | Main | Klasse | 8 | ≈ 2% | Die Klasse mit der Main-Methode |
-|**engine**| **AL** | **Gesamte AL** | - | **245** | **≈ 54%** | Zusammenfassung des Paket "engine" |
-|**presentation**| **PI** | **Gesamte PI** | - | **206** | **≈ 45%** | Zusammenfassung des Paket "presentation" |
-|-| - | **Gesamtes Projekt** | - | **458** | - | Gesamtzeilen des Projekts |
+| Cell | engine | AL | Klasse | 32 | ≈ 7% | Eine einzelne Zelle in der Simulation |
+| CellStatus | engine | AL | Enum | 4 | ≈ 1% | Die möglichen Zustände der Zellen |
+| Engine | engine | AL | Klasse| 172 | ≈ 38% | Der Kern der Anwendung |
+| GameOfCorona | engine | AL | Interface | 37 | ≈ 8% | Die Schnittstelle zwischen AL und PI |
+| Grid | presentation | PI | Klasse | 33 | ≈ 7% | Raster zum Ausrichten der Zellen |
+| PI | presentation | PI | Klasse | 172 | ≈ 38% | Die Präsentation und Interaktion der Simulation |
+| Main | - | - | Klasse | 8 | ≈ 2% | Die Klasse mit der Main-Methode |
+
+####Projektabschnitte:
+
+| Name | Paket | LOC | Anteil in % | Kurzbeschreibung|
+| ------ | ------ | ------ | ------ | ------ |
+|**engine**| **AL** | **245** | **≈ 54%** | Zusammenfassung des Paket "engine" |
+|**presentation**| **PI** | **206** | **≈ 45%** | Zusammenfassung des Paket "presentation" |
+|**Gesamtes Projekt** | - |**458** | - | Gesamtzeilen des Projekts = AL + PI + Main Klasse|
 
 ## Quellen:
 
 ---
-Zusätzliche Bibliothek für Buttons und Slider "controlP5":
+
+#### Genutzte Nachschlagewerke:
+
+- Digital:
+    - https://javabeginners.de/index.php
+    - https://docs.oracle.com/javase/8/docs/api/
+    - die im PiS Moodle Kurs zur Verfügung gestellten Dokumente
+- Analog:
+    - Kofler M.(2019), "Java der Grundkurs", 3. Auflage, Rheinwerke-Verlag
+    - Niemann A. (2007), "Objektorientierte Programmierung in Java", 5. Auflage, bhv
+
+#### Zusätzlich genutzte Bibliothek für Buttons und Slider "controlP5":
 
 - Website: http://www.sojamo.de/libraries/controlP5/
 - auf GitHub: https://github.com/sojamo/controlp5
 
-Aufgrund der teils sehr bescheidenen Dokumentation der controlP5 Bibliothek hab ich mich an den Beispieldateien
-orientiert die im entsprechenden Projekt auf GitHub zur verfügung gestellt wurden:
+#### Sonstiges:
 
-- für die
+- Der Algorithmus zur Findung der Nachbarzellen wurde von der Seite 233 des Buches "Java der Grundkurs" von Michael
+Kofler inspiriert, dort wurde erklärt wie man die Bewegung einer Schachfigur auf Gültigkeit prüft und wie man mit ungültigen Bewegungen umgeht.
+
+
+- Aufgrund der sehr bescheidenen Dokumentation der controlP5 Bibliothek hab ich mich an den Beispieldateien orientiert die
+im entsprechenden Projekt auf GitHub zur verfügung gestellt wurden:
+  - für die
   Buttonbar: https://github.com/sojamo/controlp5/blob/master/examples/controllers/ControlP5ButtonBar/ControlP5ButtonBar.pde
-- für die
+  - für die
   Slider: https://github.com/sojamo/controlp5/blob/master/examples/controllers/ControlP5slider/ControlP5slider.pde
 
 
+- In JUnit habe ich mithilfe der folgenden Videos eingearbeitet:
+
+  - https://youtu.be/we3zJE3hlWE
+  - https://youtu.be/4NDc9QZ8pls
+  - https://youtu.be/jtsHJufkDfU
+
+*Alle Links wurden zuletzt am 11.06.2021 geprüft.*
 
