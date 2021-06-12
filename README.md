@@ -65,6 +65,7 @@ Benutzen des Mausrades verändert werden.
 ## Übersicht über die Dateien und die Lines of Code:
 
 ---
+
 ####Einzeldateien:
 
 | Name | Paket | Teil von | Type | LOC | Anteil in % | Kurzbeschreibung|
@@ -76,6 +77,7 @@ Benutzen des Mausrades verändert werden.
 | Grid | presentation | PI | Klasse | 33 | ≈ 7% | Raster zum Ausrichten der Zellen |
 | PI | presentation | PI | Klasse | 172 | ≈ 38% | Die Präsentation und Interaktion der Simulation |
 | Main | - | - | Klasse | 8 | ≈ 2% | Die Klasse mit der Main-Methode |
+
 
 ####Projektabschnitte:
 
