@@ -66,7 +66,7 @@ Benutzen des Mausrades verändert werden.
 
 ---
 
-####Einzeldateien:
+#### Einzeldateien:
 
 | Name | Paket | Teil von | Type | LOC | Anteil in % | Kurzbeschreibung|
 | ------ | ------ | ------ | ------ | ------ | ------ | ------ |
@@ -79,7 +79,7 @@ Benutzen des Mausrades verändert werden.
 | Main | - | - | Klasse | 8 | ≈ 2% | Die Klasse mit der Main-Methode |
 
 
-####Projektabschnitte:
+#### Projektabschnitte:
 
 | Name | Paket | LOC | Anteil in % | Kurzbeschreibung|
 | ------ | ------ | ------ | ------ | ------ |
