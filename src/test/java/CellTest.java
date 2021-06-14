@@ -8,11 +8,11 @@ class CellTest {
     @Test
     void testGetterSetterStatus() {
         //die Zelle ist default HEALTHY
-        assertSame(new Cell().getStatus(), CellStatus.HEALTHY, "die zell muss standardmässig gesund sein");
+        assertSame(new Cell().getStatus(), CellStatus.HEALTHY, "die zelle muss standardmässig gesund sein");
 
         //der Status der Celle ist aenderbar
-        assertNotSame(new Cell().setStatus(CellStatus.SICK).getStatus(), CellStatus.HEALTHY, "status der zell hat sich nicht geaendert");
-        assertSame(new Cell().setStatus(CellStatus.DEAD).getStatus(), CellStatus.DEAD, "status der zell hat sich nicht geändert");
+        assertNotSame(new Cell().setStatus(CellStatus.SICK).getStatus(), CellStatus.HEALTHY, "status der zelle hat sich nicht geaendert");
+        assertSame(new Cell().setStatus(CellStatus.DEAD).getStatus(), CellStatus.DEAD, "status der zelle hat sich nicht geändert");
     }
 
     @Test

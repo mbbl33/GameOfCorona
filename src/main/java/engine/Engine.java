@@ -76,7 +76,7 @@ public class Engine implements GameOfCorona {
      * set a value of the simulation
      *
      * @param control the simulation parameter which is to be changed
-     * @param value   the value that it should assume
+     * @param value   the value that should assume
      */
     public Engine setControl(Control control, int value) {
         if (value < control.start || value > control.stop)
@@ -103,7 +103,7 @@ public class Engine implements GameOfCorona {
     /**
      * infects a cell
      *
-     * @param pos is the position the cell that is infected
+     * @param pos is the position of the cell that is infected
      */
     public Engine infectCell(int pos) {
         if (isNOTInBoard(pos))
@@ -122,9 +122,9 @@ public class Engine implements GameOfCorona {
     public Engine immunizeCell(int pos) {
         if (isNOTInBoard(pos))
             throw new IllegalArgumentException("Position is not inside the Board");
-        int IMMUNE_TICK_MODIFIER = 5;
+        final int immuneTickModifier = 5;
         if (board.get(pos).getStatus() != CellStatus.DEAD && board.get(pos).getStatus() != CellStatus.IMMUNE)
-            board.get(pos).setStatus(CellStatus.IMMUNE).setTicksTillEvent(genRandomTicksTillEvent(IMMUNE_TICK_MODIFIER));
+            board.get(pos).setStatus(CellStatus.IMMUNE).setTicksTillEvent(genRandomTicksTillEvent(immuneTickModifier));
         return this;
     }
 
@@ -179,6 +179,7 @@ public class Engine implements GameOfCorona {
     /**
      * @param pos is the position of the cell from which the neighbors are to be checked for indefectibility.
      *            only cells that have the status HEALTHY or MASKED can be infected
+     * @return a list of the positions of the cells that can be infected which are adjacent to the specified cell
      */
     private List<Integer> getInfectableNeighbours(int pos) {
         return Arrays.stream(Direction.values())
@@ -191,6 +192,7 @@ public class Engine implements GameOfCorona {
     /**
      * @param cell from which the neighbors are to be checked for indefectibility.
      *             only cells that have the status HEALTHY or MASKED can be infected
+     * @return a list of the positions of the cells that can be infected which are adjacent to the specified cell
      */
     private List<Integer> getInfectableNeighbours(Cell cell) {
         return getInfectableNeighbours(board.indexOf(cell));
@@ -198,6 +200,7 @@ public class Engine implements GameOfCorona {
 
     /**
      * @param f ensures that a transferred value is a percentage value in the range from 0 to 100 inclusive
+     * @return true if the value is NOT  in percent
      */
     private boolean isNOTPercentage(float f) {
         return f < 0 || 100 < f;

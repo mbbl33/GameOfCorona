@@ -16,6 +16,10 @@ Infektionswahrscheinlichkeit abnimmt, wenn eine Zelle eine Maske trägt, die Tö
 Immunisierung erneut infiziert zu werden, eingestellt werden. Zusätzlich lassen sich die „ticks till event“ einstellen
 hiervon wird die Dauer einer Infektion und die Dauer der Immunität beeinflusst.
 
+*Anmerkung: ursprünglich war das Feature geplant die Anzahl der Zellen dynamisch skalierbar zu machen. Einige der
+Datenstrukturen und Umsetzungen berücksichtigen dies schon um es für die Zukunft offen zuhalten. Um unter 480 Zeilen
+zubleiben wurde dies noch nicht implementiert.*
+
 ## Screenshot zur Anwendung:
 
 ---
@@ -78,7 +82,6 @@ Benutzen des Mausrades verändert werden.
 | PI | presentation | PI | Klasse | 172 | ≈ 38% | Die Präsentation und Interaktion der Simulation |
 | Main | - | - | Klasse | 8 | ≈ 2% | Die Klasse mit der Main-Methode |
 
-
 #### Projektabschnitte:
 
 | Name | Paket | LOC | Anteil in % | Kurzbeschreibung|
@@ -109,22 +112,23 @@ Benutzen des Mausrades verändert werden.
 #### Sonstiges:
 
 - Der Algorithmus zur Findung der Nachbarzellen wurde von der Seite 233 des Buches "Java der Grundkurs" von Michael
-Kofler inspiriert, dort wurde erklärt wie man die Bewegung einer Schachfigur auf Gültigkeit prüft und wie man mit ungültigen Bewegungen umgeht.
+  Kofler inspiriert, dort wurde erklärt wie man die Bewegung einer Schachfigur auf Gültigkeit prüft und wie man mit
+  ungültigen Bewegungen umgeht.
 
 
-- Aufgrund der sehr bescheidenen Dokumentation der controlP5 Bibliothek hab ich mich an den Beispieldateien orientiert die
-im entsprechenden Projekt auf GitHub zur verfügung gestellt wurden:
-  - für die
-  Buttonbar: https://github.com/sojamo/controlp5/blob/master/examples/controllers/ControlP5ButtonBar/ControlP5ButtonBar.pde
-  - für die
-  Slider: https://github.com/sojamo/controlp5/blob/master/examples/controllers/ControlP5slider/ControlP5slider.pde
+- Aufgrund der sehr bescheidenen Dokumentation der controlP5 Bibliothek hab ich mich an den Beispieldateien orientiert
+  die im entsprechenden Projekt auf GitHub zur verfügung gestellt wurden:
+    - für die
+      Buttonbar: https://github.com/sojamo/controlp5/blob/master/examples/controllers/ControlP5ButtonBar/ControlP5ButtonBar.pde
+    - für die
+      Slider: https://github.com/sojamo/controlp5/blob/master/examples/controllers/ControlP5slider/ControlP5slider.pde
 
 
 - In JUnit habe ich mithilfe der folgenden Videos eingearbeitet:
 
-  - https://youtu.be/we3zJE3hlWE
-  - https://youtu.be/4NDc9QZ8pls
-  - https://youtu.be/jtsHJufkDfU
+    - https://youtu.be/we3zJE3hlWE
+    - https://youtu.be/4NDc9QZ8pls
+    - https://youtu.be/jtsHJufkDfU
 
 *Alle Links wurden zuletzt am 11.06.2021 geprüft.*
 

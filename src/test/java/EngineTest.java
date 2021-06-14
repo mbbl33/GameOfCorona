@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class EngineTest {
 
+    //zwei engines fuer die verschiedenen tests
     private static Engine genTestEngine() {
         return new Engine(4)
                 .infectCell(4) //"S"
@@ -15,13 +16,12 @@ class EngineTest {
                 .maskCell(15);    //"M"
     }
 
-    private static Engine genSmallTestEngine() {
-        return new Engine(3);
-    }
-
     //H -> Healthy, M -> Masked,  S -> "Sick" Infected, I -> Immune D -> Dead
     private static final String TEST_BOARD = "HHHH\nSDHH\nHHHH\nHHIM\n";
 
+    private static Engine genSmallTestEngine() {
+        return new Engine(3);
+    }
 
     @Test
     void testToString() {
@@ -37,7 +37,7 @@ class EngineTest {
         assertNotSame(test.getBoard(), test.getBoard(), "getBoard gibt den pointer zum orginal Board zurueck");
 
         //pruefen ob es eine deep copy ist
-        assertEquals(test.getBoard().get(0).toString(), "H", "der healthy status der zelle wurde nicht richtig weitergegeben");
+        assertEquals(test.getBoard().get(0).toString(), "H", "der status der zelle wurde nicht richtig weitergegeben");
         assertSame(test.getBoard().get(14).getStatus(), CellStatus.IMMUNE, "der status der zelle wurde nicht richtig weitergegeben");
         assertTrue(test.getBoard().get(4).getTicksTillEvent() > 0, "ticksTillEvent der zelle wurde nicht weitergegeben");
     }
@@ -52,7 +52,7 @@ class EngineTest {
         Engine test = genTestEngine().setControl(Engine.Control.MASK_MODIFIER, 0);
         assertEquals(test.infectCell(2).infectCell(5).infectCell(14).infectCell(15).toString(), "HHSH\nSDHH\nHHHH\nHHIS\n", "es koennen nur gesunde und maskierte zellen infiziert werden");
 
-        //bei infizierten zellen wird der ticks till even 0< gesetzt
+        //bei infizierten zellen wird der ticks till even >0 gesetzt
         assertTrue(test.getBoard().get(0).getTicksTillEvent() != test.infectCell(0).getBoard().get(0).getTicksTillEvent(), "ticksTillEvent muessen bei einer infektion gesetzt werden");
     }
 
@@ -63,8 +63,7 @@ class EngineTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> genTestEngine().immunizeCell(16), "nur zellen im board koennen immun werden");
 
         //absichern das nur lebende zellen immun werden
-        Engine test = genTestEngine();
-        assertEquals(test.immunizeCell(2).immunizeCell(4).immunizeCell(5).immunizeCell(15).toString(), "HHIH\nIDHH\nHHHH\nHHII\n", "nur lebende zellen können immun werden");
+        assertEquals(genTestEngine().immunizeCell(2).immunizeCell(4).immunizeCell(5).immunizeCell(15).toString(), "HHIH\nIDHH\nHHHH\nHHII\n", "nur lebende zellen können immun werden");
     }
 
     @Test
@@ -74,8 +73,7 @@ class EngineTest {
         Assertions.assertThrows(IllegalArgumentException.class, () -> genTestEngine().maskCell(16), "nur zellen im board koennen maskiert werden");
 
         //darf nur gesunden zellen masken geben
-        Engine test = genTestEngine();
-        assertEquals(test.maskCell(2).maskCell(4).maskCell(5).maskCell(14).toString(), "HHMH\nSDHH\nHHHH\nHHIM\n", "nur gesunde zellen koennen masken tragen");
+        assertEquals(genTestEngine().maskCell(2).maskCell(4).maskCell(5).maskCell(14).toString(), "HHMH\nSDHH\nHHHH\nHHIM\n", "nur gesunde zellen koennen masken tragen");
     }
 
     @Test
@@ -235,7 +233,6 @@ class EngineTest {
     }
 
 
-    //ich gehe davon
     @RepeatedTest(value = 100, name = "Wiederholungslauf {currentRepetition} von {totalRepetitions}")
     void testTickRangeOfanInfectedCell() {
         //test ob die tickTillEvent bei einer infektion richtig gesetzt werden
@@ -265,7 +262,7 @@ class EngineTest {
     @Test
     void testReset() {
         //wird richtig resetet?
-        assertEquals(genTestEngine().reset().toString(),"HHHH\nHHHH\nHHHH\nHHHH\n", "die zellen muessen nach einem reset wieder alle gesund sein");
+        assertEquals(genTestEngine().reset().toString(), "HHHH\nHHHH\nHHHH\nHHHH\n", "die zellen muessen nach einem reset wieder alle gesund sein");
         assertEquals(genTestEngine().reset().getBoard().stream().mapToInt(Cell::getTicksTillEvent).sum(), 0, "nach einem reset muessen alle ticksTillEvent 0 sein");
     }
 }
