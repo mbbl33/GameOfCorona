@@ -179,22 +179,22 @@ public class Engine implements GameOfCorona {
     /**
      * @param pos is the position of the cell from which the neighbors are to be checked for indefectibility.
      *            only cells that have the status HEALTHY or MASKED can be infected
-     * @return a list of the positions of the cells that can be infected which are adjacent to the specified cell
+     * @return a set of the positions of the cells that can be infected which are adjacent to the specified cell
      */
-    private List<Integer> getInfectableNeighbours(int pos) {
+    private Set<Integer> getInfectableNeighbours(int pos) {
         return Arrays.stream(Direction.values())
                 .map(direction -> getCellNeighbour(pos, direction))
                 .filter(isInfectable)
                 .map(board::indexOf)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     /**
      * @param cell from which the neighbors are to be checked for indefectibility.
      *             only cells that have the status HEALTHY or MASKED can be infected
-     * @return a list of the positions of the cells that can be infected which are adjacent to the specified cell
+     * @return a set of the positions of the cells that can be infected which are adjacent to the specified cell
      */
-    private List<Integer> getInfectableNeighbours(Cell cell) {
+    private Set<Integer> getInfectableNeighbours(Cell cell) {
         return getInfectableNeighbours(board.indexOf(cell));
     }
 
@@ -237,24 +237,24 @@ public class Engine implements GameOfCorona {
     /**
      * @return all cells that have the possibility of being infected during the next run "tick"
      */
-    private List<Integer> getPotentialInfections() {
+    private Set<Integer> getPotentialInfections() {
         return board.stream()
                 .filter(isSick)
                 .map(this::getInfectableNeighbours)
-                .flatMap(List::stream)
-                .collect(Collectors.toList());
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
     }
 
     /**
      * @param infectable cells that have the possibility of being infected
      * @return cells that will be infected
      */
-    private List<Integer> getNewInfections(List<Integer> infectable) {
+    private Set<Integer> getNewInfections(Set<Integer> infectable) {
         return infectable.stream()
                 .filter(cellPos -> board.get(cellPos).getStatus() == CellStatus.MASKED
                         ? willEventHappen(controlValues.get(Control.INFECTION_PROBABILITY), controlValues.get(Control.MASK_MODIFIER))
                         : willEventHappen(controlValues.get(Control.INFECTION_PROBABILITY)))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     /**
@@ -262,7 +262,7 @@ public class Engine implements GameOfCorona {
      *
      * @param infections all cells that will be infected
      */
-    private void setNewInfections(List<Integer> infections) {
+    private void setNewInfections(Set<Integer> infections) {
         infections.forEach(this::infectCell);
     }
 

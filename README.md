@@ -10,20 +10,21 @@ Klassikers [„Game of Life“](https://de.wikipedia.org/wiki/Conways_Spiel_des_
 „infizieren“ und benachbarte Zellen können sich anders als beim Original „Game of Life“ anhand eines Zufallswertes
 anstecken. Zellen mit Maske können eine geringere Ansteckungswahrscheinlichkeit haben. Die Zellen können nach einer
 Infektion sterben oder immun werden. Der User soll die Simulation beeinflussen können, indem er Zellen infiziert, impft,
-Masken tragen lässt oder tötet. Darüber hinaus kann über verschiedene Parameter festgelegt werden wie die Geschwindigkeit der Simulation, wie hoch
+Masken tragen lässt oder tötet. Darüber hinaus kann über verschiedene Parameter festgelegt werden wie schnell die Simulation ist, wie hoch
 Infektionswahrscheinlichkeit von Zellen mit erkranktem Nachbarn ist, wie effektiv eine getragene
 Maske vor einer Erkrankung schützt, wie tödlich diese ist und mit welcher Wahrscheinlichkeit es zu einer erneuten
 Infektion trotz eigentlicher Immunisierung kommen kann. Zusätzlich kann man die „ticks till event“ konfigurieren, von
-welchen die Dauer einer Infektion und Immunität abhängen.
+welchen die Dauer einer Infektion und der Immunität abhängen.
 
 *Anmerkung: Ursprünglich war ein Feature geplant, welches die Anzahl der Zellen dynamisch skalierbar gemacht hätte.
 Einige der Datenstrukturen und Umsetzungen berücksichtigen dies auch bereits, um eine eventuelle Umsetzung in der
-Zukunft zu vereinfachen. Damit die Anzahl der Zellen nicht 480 übersteigt, wurde dies jedoch noch nicht implementiert.*
+Zukunft zu vereinfachen. Damit die Anzahl der Zeilen nicht 480 übersteigt, wurde dies jedoch noch nicht implementiert.*
 
 
 ## Screenshot zur Anwendung:
 
 ---
+![](readmeImgs/main.png)
 
 ### Legende zu den Zellen-Icons
 
@@ -61,7 +62,7 @@ des Mausrades verändert werden.
 | infection probability | Die Wahrscheinlichkeit, mit welcher sich eine Zelle bei einem infizierten Nachbarn im nächsten Update ansteckt. | 0 | 100 | % |
 | infection reduction by mask | Wie effektiv eine Maske vor einer Infektion schützt. | 0 | 100 | % |
 | death probability | Die Wahrscheinlichkeit, mit welcher eine Zelle an einer Infektion stirbt. | 0 | 100 | % |
-| chance of becoming infectabel| Die Wahrscheinlichkeit, mit welcher sich eine Zelle trotz eigentlicher Immunisierung infizieren kann. Nach Ablauf der garantierten Immunitätsdauer wird jede Runde gewürfelt. | 0 | 100 | % |
+| chance of becoming infectabel| Die Wahrscheinlichkeit, mit welcher sich eine Zelle nach der Immunisierung wieder infizieren kann. Nach Ablauf der garantierten Immunitätsdauer wird jede Runde gewürfelt. | 0 | 100 | % |
 | random tickeventrange | Die Tickrange bestimmt, wie lange eine Zelle höchstens krank sein kann. Der Wert multipliziert mit fünf bestimmt die garantierte Immunitätsdauer einer Zelle. Die "ticks till event" sind ein Versuch, die Willkür des Lebens zu erfassen.| 0 | 100 | "game ticks" |
 
 ## Übersicht über die Dateien und die Lines of Code:
@@ -98,6 +99,7 @@ des Mausrades verändert werden.
   - https://javabeginners.de/index.php
   - https://docs.oracle.com/javase/8/docs/api/
   - die im PiS Moodle Kurs zur Verfügung gestellten Dokumente
+  - https://processing.org/reference/
 - Analog:
   - Kofler M.(2019), "Java der Grundkurs", 3. Auflage, Rheinwerke-Verlag
   - Niemann A. (2007), "Objektorientierte Programmierung in Java", 5. Auflage, bhv

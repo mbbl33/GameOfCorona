@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CellTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-06-14T11:49:57" hostname="DESKTOP-VKM3MS6" time="0.035">
+<testsuite name="CellTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-06-21T06:58:24" hostname="DESKTOP-VKM3MS6" time="0.217">
   <properties/>
-  <testcase name="reduceCellTicks()" classname="CellTest" time="0.023"/>
-  <testcase name="testToString()" classname="CellTest" time="0.003"/>
-  <testcase name="eventCountdownDone()" classname="CellTest" time="0.003"/>
-  <testcase name="testGetterSetterTicksTillEvent()" classname="CellTest" time="0.003"/>
+  <testcase name="reduceCellTicks()" classname="CellTest" time="0.205"/>
+  <testcase name="testToString()" classname="CellTest" time="0.002"/>
+  <testcase name="eventCountdownDone()" classname="CellTest" time="0.001"/>
+  <testcase name="testGetterSetterTicksTillEvent()" classname="CellTest" time="0.004"/>
   <testcase name="testGetterSetterStatus()" classname="CellTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
