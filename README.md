@@ -4,7 +4,7 @@ Eine kleine Virus-Simulation im Game-of-Life-Stil.
 
 ## Hinweis:
 
-Bei dem Projekt handelt es sich um mein erstes "größeres" Programmierprojekt, welches ich in meinem zweiten Semester im Rahmen der Veranstaltung "Programmieren interaktiver Systeme" an THM umgesetzt habe.
+Bei dem Projekt handelt es sich um mein erstes "größeres" Programmierprojekt, welches ich in meinem zweiten Semester im Rahmen der Veranstaltung "Programmieren interaktiver Systeme" an der THM umgesetzt habe.
 
 Aus der Aufgabenstellung entnommen:
 "Thematisch ist die Aufgabe, eine Animation, eine Simulation oder ein Spiel umzusetzen. Die Anwendung muss interaktiv sein (Beispiel: Spiel) bzw. interaktiv parametrisierbar sein (Beispiel: Animation, Simulation). Ziel ist es zu zeigen, dass Sie eine eigenständig gewählte Aufgabe alleine und selbstständig gemäß den in der Veranstaltung vermittelten Inhalte umsetzen können und die durch die Bewertungskriterien erfassten Kompetenzen erworben haben."
